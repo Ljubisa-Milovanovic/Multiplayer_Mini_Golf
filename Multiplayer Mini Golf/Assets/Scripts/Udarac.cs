@@ -5,64 +5,116 @@ using UnityEngine;
 
 public class Udarac : MonoBehaviour
 {
-    Rigidbody rbLoptice;
-    //public GameObject loptica;
-    public float snagaUdarca;
-    // Start is called before the first frame update
-    void Start()
+    
+    [SerializeField] private float shotPower;
+    [SerializeField] private float stopVelocity = .05f; //The velocity below which the rigidbody will be considered as stopped
+
+    [SerializeField] private LineRenderer lineRenderer;
+
+    private bool isIdle;
+    private bool isAiming;
+
+    private Rigidbody rigidbody;
+
+    private void Awake()
     {
-        //set masu iz poblic vrednosti jer addforce zavisi od mase
-        rbLoptice = GetComponent<Rigidbody>();
-        proslaPozicija = rbLoptice.position;
+        rigidbody = GetComponent<Rigidbody>();
+
+        isAiming = false;
+        lineRenderer.enabled = false;
     }
-    private bool pomeraSe = true;
-    private Vector3 proslaPozicija;
-    // Update is called once per frame
-    void FixedUpdate()
+
+    private void FixedUpdate()
     {
-        if (proslaPozicija == rbLoptice.position)
+        if (rigidbody.velocity.magnitude < stopVelocity)
         {
-            pomeraSe = false;
-            Debug.Log("Ne pomera se loptica trnt");
+            Stop();
+        }
+
+        ProcessAim();
+    }
+
+    private void OnMouseDown()
+    {
+        if (isIdle)
+        {
+            isAiming = true;
+        }
+    }
+
+    private void ProcessAim()
+    {
+        if (!isAiming || !isIdle)
+        {
+            return;
+        }
+
+        Vector3? worldPoint = CastMouseClickRay();
+
+        if (!worldPoint.HasValue)
+        {
+            return;
+        }
+
+        DrawLine(worldPoint.Value);
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            Shoot(worldPoint.Value);
+        }
+    }
+
+    private void Shoot(Vector3 worldPoint)
+    {
+        isAiming = false;
+        lineRenderer.enabled = false;
+
+        Vector3 horizontalWorldPoint = new Vector3(worldPoint.x, transform.position.y, worldPoint.z);
+
+        Vector3 direction = (horizontalWorldPoint - transform.position).normalized;
+        float strength = Vector3.Distance(transform.position, horizontalWorldPoint);
+
+        rigidbody.AddForce(direction * strength * shotPower);
+        isIdle = false;
+    }
+
+    private void DrawLine(Vector3 worldPoint)
+    {
+        Vector3[] positions = {
+        transform.position,
+        worldPoint};
+        lineRenderer.SetPositions(positions);
+        lineRenderer.enabled = true;
+    }
+
+    private void Stop()
+    {
+        rigidbody.velocity = Vector3.zero;
+        rigidbody.angularVelocity = Vector3.zero;
+        isIdle = true;
+    }
+
+    private Vector3? CastMouseClickRay()
+    {
+        Vector3 screenMousePosFar = new Vector3(
+            Input.mousePosition.x,
+            Input.mousePosition.y,
+            Camera.main.farClipPlane);
+        Vector3 screenMousePosNear = new Vector3(
+            Input.mousePosition.x,
+            Input.mousePosition.y,
+            Camera.main.nearClipPlane);
+        Vector3 worldMousePosFar = Camera.main.ScreenToWorldPoint(screenMousePosFar);
+        Vector3 worldMousePosNear = Camera.main.ScreenToWorldPoint(screenMousePosNear);
+        RaycastHit hit;
+        if (Physics.Raycast(worldMousePosNear, worldMousePosFar - worldMousePosNear, out hit, float.PositiveInfinity))
+        {
+            return hit.point;
         }
         else
         {
-            pomeraSe = true;
-            Debug.Log("Pomera se loptica trnt");       
-        }
-        proslaPozicija = rbLoptice.position;
-        if (pomeraSe)
-        {
-            int i = 0;
-            if (Math.Abs(rbLoptice.position.x - proslaPozicija.x) < 0.0001)
-            {
-                i++;
-                rbLoptice.velocity = new Vector3(0, rbLoptice.velocity.y, rbLoptice.velocity.z);
-                //rbLoptice.velocity = new Vector3(proslaPozicija.x, rbLoptice.position.y, rbLoptice.position.z);
-            }
-            //if (Math.Abs(rbLoptice.position.y - proslaPozicija.y) < 0.01)
-            //{
-            //    i++;
-            //    //rbLoptice.velocity = new Vector3(rbLoptice.position.x, proslaPozicija.y, rbLoptice.position.z);
-            //}
-            if (Math.Abs(rbLoptice.position.z - proslaPozicija.z) < 0.0001)
-            {
-                i++;
-                rbLoptice.velocity = new Vector3(rbLoptice.velocity.x, rbLoptice.velocity.y, 0);
-                //rbLoptice.velocity = new Vector3(rbLoptice.position.x, rbLoptice.position.y, proslaPozicija.z);
-            }
-            //if (i > 1)
-            //{
-            //    rbLoptice.velocity = new Vector3(0, rbLoptice.velocity.y, 0);
-            //}
-        }
-        else
-        {
-            if (Input.GetMouseButtonUp(0))//left click pusten
-            {
-                rbLoptice.AddForce(transform.right * snagaUdarca, ForceMode.Force); //vector3 zavisi od misa
-                Debug.Log("Levi klik pusten");
-            }
+            return null;
         }
     }
+    
 }
