@@ -14,6 +14,9 @@ public class Udarac : MonoBehaviour
     private bool isIdle;
     private bool isAiming;
 
+    private float lastYposition;
+    private bool isGrounded;
+
     private Rigidbody rigidbody;
 
     private void Awake()
@@ -24,9 +27,16 @@ public class Udarac : MonoBehaviour
         lineRenderer.enabled = false;
     }
 
+    void Start()
+    {
+        lastYposition = transform.position.y;
+    }
+
     private void FixedUpdate()
     {
-        if (rigidbody.velocity.magnitude < stopVelocity)
+        isGrounded = (lastYposition == transform.position.y); // Checks if Y has changed since last frame
+        lastYposition = transform.position.y;
+        if (rigidbody.velocity.magnitude < stopVelocity && isGrounded)
         {
             Stop();
         }
