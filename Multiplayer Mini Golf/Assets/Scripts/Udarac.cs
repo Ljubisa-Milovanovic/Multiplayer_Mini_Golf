@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class Udarac : MonoBehaviour
 {
-    
+    public Material[] materials;
+    private int materialCounter = 0;
+    Renderer rend;
+
     [SerializeField] private float shotPower;
     [SerializeField] private float stopVelocity = .05f; //The velocity below which the rigidbody will be considered as stopped
 
@@ -30,6 +33,9 @@ public class Udarac : MonoBehaviour
     void Start()
     {
         lastYposition = transform.position.y;
+        rend = GetComponent<Renderer>();
+        rend.enabled = true;
+        rend.sharedMaterial = materials[0];
     }
 
     private void FixedUpdate()
@@ -40,10 +46,27 @@ public class Udarac : MonoBehaviour
         {
             Stop();   
         }
-        if (isIdle)
+        if (isIdle && isGrounded)
         {
             Debug.Log("mf is idle and ready to explode.......PAUSE");
-
+            if(materialCounter < 15)
+            {
+                rend.sharedMaterial = materials[1];
+            }
+            if (materialCounter >= 15)
+            {
+                rend.sharedMaterial = materials[2];
+            }
+            if(materialCounter > 30)
+            {
+                materialCounter = 0;
+            }
+            materialCounter++;
+        }
+        else
+        {
+            rend.sharedMaterial = materials[0];
+            materialCounter = 0;
         }
         ProcessAim();
     }
@@ -72,6 +95,8 @@ public class Udarac : MonoBehaviour
         }
 
         DrawLine(worldPoint.Value);
+        materialCounter = 0;
+        rend.sharedMaterial = materials[0];
 
         if (Input.GetMouseButtonUp(0))
         {
