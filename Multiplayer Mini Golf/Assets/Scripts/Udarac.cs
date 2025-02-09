@@ -38,11 +38,16 @@ public class Udarac : MonoBehaviour
         lastYposition = transform.position.y;
         if (rigidbody.velocity.magnitude < stopVelocity && isGrounded)
         {
-            Stop();
+            Stop();   
         }
+        if (isIdle)
+        {
+            Debug.Log("mf is idle and ready to explode.......PAUSE");
 
+        }
         ProcessAim();
     }
+
 
     private void OnMouseDown()
     {
@@ -84,7 +89,7 @@ public class Udarac : MonoBehaviour
         Vector3 direction = (horizontalWorldPoint - transform.position).normalized;
         float strength = Vector3.Distance(transform.position, horizontalWorldPoint);
 
-        rigidbody.AddForce(direction * strength * shotPower);
+        rigidbody.AddForce(-direction * strength * shotPower); //ne dodat forcemode.impulse
         isIdle = false;
     }
 
@@ -104,7 +109,7 @@ public class Udarac : MonoBehaviour
         isIdle = true;
     }
 
-    private Vector3? CastMouseClickRay()
+    private Vector3? CastMouseClickRay() //invisible floor required on every level for it to work
     {
         Vector3 screenMousePosFar = new Vector3(
             Input.mousePosition.x,
@@ -117,8 +122,10 @@ public class Udarac : MonoBehaviour
         Vector3 worldMousePosFar = Camera.main.ScreenToWorldPoint(screenMousePosFar);
         Vector3 worldMousePosNear = Camera.main.ScreenToWorldPoint(screenMousePosNear);
         RaycastHit hit;
+        
         if (Physics.Raycast(worldMousePosNear, worldMousePosFar - worldMousePosNear, out hit, float.PositiveInfinity))
         {
+            Debug.Log("hit is: " + hit.point.ToString());
             return hit.point;
         }
         else
