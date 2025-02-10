@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Udarac : MonoBehaviour
 {
+    public PhysicMaterial ballMaterial;
     public int Strokes = 0;
 
     public Material[] materials;
@@ -42,11 +43,21 @@ public class Udarac : MonoBehaviour
         rend.sharedMaterial = materials[0];
 
         rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+
+
+        
+        ballMaterial.bounciness = 0f; // Default to no bounce
+        ballMaterial.bounceCombine = PhysicMaterialCombine.Average;//average
+
+        // Assign the material to the ball's collider
+        GetComponent<Collider>().material = ballMaterial;
+
     }
 
     private void FixedUpdate()
     {
-        stopStopper++;
+        if(stopStopper<20)
+            stopStopper++;
         isGrounded = Mathf.Abs(lastYposition - transform.position.y) < groundedThreshold;
         lastYposition = transform.position.y;
         if (rigidbody.velocity.magnitude < stopVelocity && isGrounded)
@@ -56,8 +67,13 @@ public class Udarac : MonoBehaviour
         }
         if (isIdle && isGrounded)
         {
+            
+                //Vector3 velocity = rigidbody.velocity;
+                //velocity.y = 0; // Eliminate vertical velocity
+                //rigidbody.velocity = velocity;
+            
             //Debug.Log("mf is idle and ready to explode.......PAUSE");
-            if(materialCounter < 15)
+            if (materialCounter < 15)
             {
                 rend.sharedMaterial = materials[1];
             }
@@ -78,6 +94,26 @@ public class Udarac : MonoBehaviour
         }
         ProcessAim();
     }
+
+
+    void OnCollisionEnter(Collision collision)
+    {
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            Vector3 normal = contact.normal.normalized;
+
+            // Assuming the ground is horizontal and the normal points upward
+            if (Vector3.Dot(normal, Vector3.up) > 0.7f)
+            {
+                // Collision with ground
+                ballMaterial.bounciness = 0f;
+                return; // Exit early, since we've identified the ground
+            }
+        }
+        // Collision with walls or other surfaces
+        ballMaterial.bounciness = 1f;
+    }
+
 
 
     private void OnMouseDown()
@@ -150,8 +186,8 @@ public class Udarac : MonoBehaviour
             transform.position = new Vector3(position.x, Mathf.Round(position.y * 1000f) / 1000f, position.z);
             // Make the Rigidbody kinematic to prevent further physics interactions
             //
-            rigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
-            rigidbody.isKinematic = true;
+            //rigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+            //rigidbody.isKinematic = true;
             isIdle = true;
             //Debug.Log("uso sam u if stopa");
         }
@@ -159,7 +195,7 @@ public class Udarac : MonoBehaviour
         //rigidbody.angularVelocity = Vector3.zero;
         //isIdle = true;
         //Debug.Log("mf is stoped");
-        rigidbody.isKinematic = false;
+        //rigidbody.isKinematic = false;
     }
 
     private Vector3? CastMouseClickRay() //invisible floor required on every level for it to work
