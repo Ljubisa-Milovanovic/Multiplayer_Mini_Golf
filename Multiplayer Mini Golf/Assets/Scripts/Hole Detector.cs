@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class HoleDetector : MonoBehaviour
 {
-    private Udarac udarac;
-
-    
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
@@ -14,7 +11,8 @@ public class HoleDetector : MonoBehaviour
         // Check if the object that entered is the ball
         if (other.CompareTag("player ball"))
         {
-            udarac = GetComponent<Udarac>();
+            // Get the Udarac component from the colliding object (the ball)
+            Udarac udarac = other.GetComponent<Udarac>();
             if (udarac != null)
             {
                 if (udarac.Strokes == 1)
@@ -26,8 +24,7 @@ public class HoleDetector : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Udarac reference is not set in HoleDetector.");
-
+                Debug.LogError("Udarac component not found on the colliding object.");
             }
         }
     }

@@ -428,6 +428,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 443a4e484cd74f441ad86db70aecea5c, type: 2}
   - {fileID: 2100000, guid: 3db4cf90ab752fe4995968d224ae8f05, type: 2}
   shotPower: 77
+  MaxPower: 1.2
   stopVelocity: 2
   lineRenderer: {fileID: 2196341073170589982}
   isIdle: 0

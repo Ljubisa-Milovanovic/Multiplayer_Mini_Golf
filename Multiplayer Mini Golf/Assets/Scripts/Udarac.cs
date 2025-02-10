@@ -14,6 +14,7 @@ public class Udarac : MonoBehaviour
     Renderer rend;
 
     [SerializeField] private float shotPower;
+    [SerializeField] private float MaxPower;
     [SerializeField] private float stopVelocity = .05f; //The velocity below which the rigidbody will be considered as stopped
 
     [SerializeField] private LineRenderer lineRenderer;
@@ -139,11 +140,12 @@ public class Udarac : MonoBehaviour
 
         Vector3 direction = (horizontalWorldPoint - transform.position).normalized;
         float strength = Vector3.Distance(transform.position, horizontalWorldPoint);
-
+        if(strength >= MaxPower)
+            strength = MaxPower;
         Strokes++;
         rigidbody.AddForce(-direction * strength * shotPower); //ne dodat forcemode.impulse
         isIdle = false;
-        Debug.Log("i shot him");
+        Debug.Log("i shot him "); //strenght: "+strength + " shotPower: " + shotPower 
     }
 
     private void DrawLine(Vector3 worldPoint)
