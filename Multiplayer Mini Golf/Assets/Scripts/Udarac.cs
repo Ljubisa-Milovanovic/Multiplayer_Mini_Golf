@@ -46,8 +46,8 @@ public class Udarac : MonoBehaviour
 
 
         
-        ballMaterial.bounciness = 0f; // Default to no bounce
-        ballMaterial.bounceCombine = PhysicMaterialCombine.Average;//average
+        ballMaterial.bounciness = 1f; // Default to no bounce
+        ballMaterial.bounceCombine = PhysicMaterialCombine.Minimum;//average
 
         // Assign the material to the ball's collider
         GetComponent<Collider>().material = ballMaterial;
@@ -95,27 +95,6 @@ public class Udarac : MonoBehaviour
         ProcessAim();
     }
 
-
-    void OnCollisionEnter(Collision collision)
-    {
-        foreach (ContactPoint contact in collision.contacts)
-        {
-            Vector3 normal = contact.normal.normalized;
-
-            // Assuming the ground is horizontal and the normal points upward
-            if (Vector3.Dot(normal, Vector3.up) > 0.7f)
-            {
-                // Collision with ground
-                ballMaterial.bounciness = 0f;
-                return; // Exit early, since we've identified the ground
-            }
-        }
-        // Collision with walls or other surfaces
-        ballMaterial.bounciness = 1f;
-    }
-
-
-
     private void OnMouseDown()
     {
         if (isIdle)
@@ -161,8 +140,10 @@ public class Udarac : MonoBehaviour
         float strength = Vector3.Distance(transform.position, horizontalWorldPoint);
 
         Strokes++;
+        ballMaterial.bounceCombine = PhysicMaterialCombine.Average;
         rigidbody.AddForce(-direction * strength * shotPower); //ne dodat forcemode.impulse
         isIdle = false;
+        Debug.Log("i shot him");
     }
 
     private void DrawLine(Vector3 worldPoint)
@@ -189,12 +170,13 @@ public class Udarac : MonoBehaviour
             //rigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
             //rigidbody.isKinematic = true;
             isIdle = true;
-            //Debug.Log("uso sam u if stopa");
+            ballMaterial.bounceCombine = PhysicMaterialCombine.Minimum;
+            Debug.Log("uso sam u if stopa");
         }
         //rigidbody.velocity = Vector3.zero;
         //rigidbody.angularVelocity = Vector3.zero;
         //isIdle = true;
-        //Debug.Log("mf is stoped");
+        Debug.Log("mf is stoped");
         //rigidbody.isKinematic = false;
     }
 
