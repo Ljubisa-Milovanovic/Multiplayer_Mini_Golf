@@ -184,7 +184,7 @@ MeshCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
   m_Convex: 0
@@ -290,7 +290,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: -156}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1421623798}
   - {fileID: 966305145}
@@ -457,7 +457,7 @@ Transform:
   m_GameObject: {fileID: 273312148}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: -156.5}
+  m_LocalPosition: {x: -1, y: 5, z: -156.5}
   m_LocalScale: {x: 0.13, y: 0.13, z: 0.13}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1357,6 +1357,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1220778443980898617, guid: 770e3b76121f8ca4aa68df368555c50a,
+        type: 3}
+      propertyPath: ballMaterial
+      value: 
+      objectReference: {fileID: 13400000, guid: baf6cf90d9fd3b74690d4ca1af15ef44,
+        type: 2}
     - target: {fileID: 54770019184025447, guid: 770e3b76121f8ca4aa68df368555c50a,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1825,7 +1831,7 @@ Transform:
   m_GameObject: {fileID: 1417274976}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: -156}
+  m_LocalPosition: {x: 1, y: 3, z: -156}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 1
   m_Children: []

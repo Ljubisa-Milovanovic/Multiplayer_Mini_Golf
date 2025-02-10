@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class HoleDetector : MonoBehaviour
 {
-    public Udarac udarac;
+    private Udarac udarac;
+
+    
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
@@ -12,6 +14,7 @@ public class HoleDetector : MonoBehaviour
         // Check if the object that entered is the ball
         if (other.CompareTag("player ball"))
         {
+            udarac = GetComponent<Udarac>();
             if (udarac != null)
             {
                 if (udarac.Strokes == 1)

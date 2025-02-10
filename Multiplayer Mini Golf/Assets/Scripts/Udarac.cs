@@ -18,7 +18,7 @@ public class Udarac : MonoBehaviour
 
     [SerializeField] private LineRenderer lineRenderer;
 
-    private bool isIdle;
+    public bool isIdle;
     private bool isAiming;
 
     private float lastYposition;
@@ -53,6 +53,7 @@ public class Udarac : MonoBehaviour
         GetComponent<Collider>().material = ballMaterial;
 
     }
+
 
     private void FixedUpdate()
     {
@@ -140,7 +141,6 @@ public class Udarac : MonoBehaviour
         float strength = Vector3.Distance(transform.position, horizontalWorldPoint);
 
         Strokes++;
-        ballMaterial.bounceCombine = PhysicMaterialCombine.Average;
         rigidbody.AddForce(-direction * strength * shotPower); //ne dodat forcemode.impulse
         isIdle = false;
         Debug.Log("i shot him");
@@ -170,13 +170,13 @@ public class Udarac : MonoBehaviour
             //rigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
             //rigidbody.isKinematic = true;
             isIdle = true;
-            ballMaterial.bounceCombine = PhysicMaterialCombine.Minimum;
-            Debug.Log("uso sam u if stopa");
+            //ballMaterial.bounceCombine = PhysicMaterialCombine.Minimum;
+            //Debug.Log("uso sam u if stopa");
         }
         //rigidbody.velocity = Vector3.zero;
         //rigidbody.angularVelocity = Vector3.zero;
         //isIdle = true;
-        Debug.Log("mf is stoped");
+        //Debug.Log("mf is stoped");
         //rigidbody.isKinematic = false;
     }
 
