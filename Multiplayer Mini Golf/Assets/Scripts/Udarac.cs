@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+
 
 public class Udarac : MonoBehaviour
 {
@@ -27,6 +29,8 @@ public class Udarac : MonoBehaviour
     private const float groundedThreshold = 0.0001f;
 
     private Rigidbody rigidbody;
+
+    public TextMeshProUGUI strokesText;
 
     private void Awake()
     {
@@ -143,6 +147,7 @@ public class Udarac : MonoBehaviour
         if(strength >= MaxPower)
             strength = MaxPower;
         Strokes++;
+        strokesText.text = "Strokes: " + Strokes.ToString();
         rigidbody.AddForce(-direction * strength * shotPower); //ne dodat forcemode.impulse
         isIdle = false;
         Debug.Log("i shot him "); //strenght: "+strength + " shotPower: " + shotPower 
