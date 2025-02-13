@@ -135,6 +135,7 @@ public class Udarac : MonoBehaviour
 
     private void Shoot(Vector3 worldPoint)
     {
+        GameMenager.instance.lastLocation = transform.position;
         rigidbody.constraints = RigidbodyConstraints.None;
 
         isAiming = false;

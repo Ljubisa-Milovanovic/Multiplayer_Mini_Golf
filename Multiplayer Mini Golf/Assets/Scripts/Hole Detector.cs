@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class HoleDetector : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class HoleDetector : MonoBehaviour
         // Check if the object that entered is the ball
         if (other.CompareTag("player ball"))
         {
+            
             // Get the Udarac component from the colliding object (the ball)
             Udarac udarac = other.GetComponent<Udarac>();
             if (udarac != null)
@@ -20,7 +23,9 @@ public class HoleDetector : MonoBehaviour
                 else
                     Debug.Log("Ball has entered the hole! Number of strokes is: " + udarac.Strokes);
 
-                // Perform any additional actions you want, like updating the score
+              
+                // go to next level
+                GameMenager.instance.NextLevel();
             }
             else
             {

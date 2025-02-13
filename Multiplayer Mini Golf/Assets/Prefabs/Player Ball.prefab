@@ -421,7 +421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 917c0494bb3b5a54887599781a8003a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballMaterial: {fileID: 0}
+  ballMaterial: {fileID: 13400000, guid: baf6cf90d9fd3b74690d4ca1af15ef44, type: 2}
   Strokes: 0
   materials:
   - {fileID: 2100000, guid: 8111c6cc3e6823545b2dd0307dc87463, type: 2}
@@ -432,3 +432,5 @@ MonoBehaviour:
   stopVelocity: 2
   lineRenderer: {fileID: 2196341073170589982}
   isIdle: 0
+  strokesText: {fileID: 760318413530666231, guid: e2bd42fb6cdcb0446af77de3d2d1072e,
+    type: 3}
