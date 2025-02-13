@@ -1192,7 +1192,7 @@ PrefabInstance:
     - target: {fileID: 1342144564617153302, guid: 2ded005fe35cc764f943d2391876a933,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 1342144564617153302, guid: 2ded005fe35cc764f943d2391876a933,
         type: 3}
@@ -1238,6 +1238,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Invisible floor(REQUIRED)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4588685859557447458, guid: 2ded005fe35cc764f943d2391876a933,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
