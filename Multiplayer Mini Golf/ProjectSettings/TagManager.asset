@@ -6,6 +6,7 @@ TagManager:
   tags:
   - hole checker
   - player ball
+  - bound box
   layers:
   - Default
   - TransparentFX
@@ -13,8 +14,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Bounds
+  - Wall Detector
   - 
   - 
   - 

@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 7664895800421764559}
   - component: {fileID: 3656379733524716560}
   - component: {fileID: 1208687156070199141}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall detector
   m_TagString: Untagged
   m_Icon: {fileID: 0}

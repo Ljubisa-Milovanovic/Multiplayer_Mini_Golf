@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8010142749843558089}
   - component: {fileID: 7431442413214126185}
   - component: {fileID: 8835534289031411907}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bounds
-  m_TagString: Untagged
+  m_TagString: bound box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

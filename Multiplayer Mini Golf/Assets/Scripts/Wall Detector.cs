@@ -29,10 +29,10 @@ public class WallDetector : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Nesto me je pipnulo ...zid..... PAUSE");
+        //Debug.Log("Nesto me je pipnulo ...zid..... PAUSE");
         // set bouncines to 1
         udarac.ballMaterial.bounceCombine = PhysicMaterialCombine.Average;
-        Debug.Log("Blizu sam zida i bounce mode je: " + udarac.ballMaterial.bounceCombine);
+        Debug.Log("enter: " + udarac.ballMaterial.bounceCombine);
 
     }
 
@@ -41,19 +41,25 @@ public class WallDetector : MonoBehaviour
     {
         //set bouncines to 0
         udarac.ballMaterial.bounceCombine = PhysicMaterialCombine.Minimum;
-        Debug.Log("nisam blizu zida i bounce mode je: " + udarac.ballMaterial.bounceCombine);
+        Debug.Log("exit: " + udarac.ballMaterial.bounceCombine);
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (udarac.isIdle)
-        {
-            udarac.ballMaterial.bounceCombine = PhysicMaterialCombine.Minimum;
-        }
-        else
-        {
-            udarac.ballMaterial.bounceCombine = PhysicMaterialCombine.Average;
-        }
+        //if (!other.CompareTag("bound box"))
+        //{
+        //}
+            if (udarac.isIdle)
+            {
+                udarac.ballMaterial.bounceCombine = PhysicMaterialCombine.Minimum;
+            }
+            else
+            {
+                udarac.ballMaterial.bounceCombine = PhysicMaterialCombine.Average;
+            }
+            Debug.Log("stay: " + udarac.ballMaterial.bounceCombine);
+        
+        
     }
 
 }
