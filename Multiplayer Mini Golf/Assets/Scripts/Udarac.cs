@@ -17,8 +17,8 @@ public class Udarac : MonoBehaviour
 
     [SerializeField] private float shotPower;
     [SerializeField] private float MaxPower=0.6f;//0.5-0.8
-    [SerializeField] private float stopVelocity = .05f; //The velocity below which the rigidbody will be considered as stopped
-    [SerializeField] private float forceExponent = 2.5f;
+    [SerializeField] private float stopVelocity = 2f; //The velocity below which the rigidbody will be considered as stopped
+    [SerializeField] private float forceExponent = 0.5f;
 
     [SerializeField] private LineRenderer lineRenderer;
 
@@ -27,15 +27,15 @@ public class Udarac : MonoBehaviour
 
     private float lastYposition;
     private bool isGrounded;
-    private const float groundedThreshold = 0.0001f;
+    private const float groundedThreshold = 0.001f;
 
-    private Rigidbody rigidbody;
+    private Rigidbody _rigidbody;
 
     public TextMeshProUGUI strokesText;
 
     private void Awake()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        _rigidbody = GetComponent<Rigidbody>();
 
         isAiming = false;
         lineRenderer.enabled = false;
@@ -48,7 +48,7 @@ public class Udarac : MonoBehaviour
         rend.enabled = true;
         rend.sharedMaterial = materials[0];
 
-        rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+        _rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
 
 
         
@@ -63,11 +63,12 @@ public class Udarac : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(stopStopper<20)
+        //Debug.Log("<color=yellow>fixedupdate function called!</color> Velocity before zeroing: " + _rigidbody.velocity.magnitude + ", Angular Velocity: " + _rigidbody.angularVelocity.magnitude); // Debug log when Stop is called
+        if (stopStopper<20)
             stopStopper++;
         isGrounded = Mathf.Abs(lastYposition - transform.position.y) < groundedThreshold;
         lastYposition = transform.position.y;
-        if (rigidbody.velocity.magnitude < stopVelocity && isGrounded)
+        if (_rigidbody.velocity.magnitude < stopVelocity && isGrounded)
         {
             if(stopStopper>10)
                 Stop();   
@@ -75,9 +76,9 @@ public class Udarac : MonoBehaviour
         if (isIdle && isGrounded)
         {
             
-                //Vector3 velocity = rigidbody.velocity;
+                //Vector3 velocity = _rigidbody.velocity;
                 //velocity.y = 0; // Eliminate vertical velocity
-                //rigidbody.velocity = velocity;
+                //_rigidbody.velocity = velocity;
             
             //Debug.Log("mf is idle and ready to explode.......PAUSE");
             if (materialCounter < 15)
@@ -100,6 +101,8 @@ public class Udarac : MonoBehaviour
             materialCounter = 0;
         }
         ProcessAim();
+        //Debug.Log("<color=red>kraj fixedupdate function called!</color> Velocity before zeroing: " + _rigidbody.velocity.magnitude + ", Angular Velocity: " + _rigidbody.angularVelocity.magnitude); // Debug log when Stop is called
+
     }
 
     private void OnMouseDown()
@@ -112,6 +115,8 @@ public class Udarac : MonoBehaviour
 
     private void ProcessAim()
     {
+        //Debug.Log("<color=yellow>processAin() function called!</color> Velocity before zeroing: " + _rigidbody.velocity.magnitude + ", Angular Velocity: " + _rigidbody.angularVelocity.magnitude); // Debug log when Stop is called
+
         if (!isAiming || !isIdle)
         {
             return;
@@ -119,6 +124,7 @@ public class Udarac : MonoBehaviour
 
         Vector3? worldPoint = CastMouseClickRay();
 
+        /*
         //just a test---------------------------
 
         Vector3 horizontalWorldPoint = new Vector3(worldPoint.Value.x, transform.position.y, worldPoint.Value.z);
@@ -126,6 +132,7 @@ public class Udarac : MonoBehaviour
         float strength = Mathf.Clamp(distance, 0f, MaxPower) / MaxPower;
         Debug.Log(" Snaga: " + strength.ToString());
         //just a test---------------------------
+        */
 
         if (!worldPoint.HasValue)
         {
@@ -140,12 +147,13 @@ public class Udarac : MonoBehaviour
         {
             Shoot(worldPoint.Value);
         }
+        //Debug.Log("<color=yellow>aim processovan function called!</color> Velocity before zeroing: " + _rigidbody.velocity.magnitude + ", Angular Velocity: " + _rigidbody.angularVelocity.magnitude); // Debug log when Stop is called
     }
 
     private void Shoot(Vector3 worldPoint)
     {
         GameMenager.instance.lastLocation = transform.position;
-        rigidbody.constraints = RigidbodyConstraints.None;
+        _rigidbody.constraints = RigidbodyConstraints.None;
 
         isAiming = false;
         lineRenderer.enabled = false;
@@ -166,19 +174,21 @@ public class Udarac : MonoBehaviour
         // Apply a power function or other non-linear curve to normalizedStrength
         //float forceMultiplier = Mathf.Pow(normalizedStrength, forceExponent)*7; // Example: Square function
         //float forceMultiplier = normalizedStrength;
-        float forceMultiplier = (normalizedStrength * normalizedStrength) + (0.5f * normalizedStrength);
+        float forceMultiplier = (normalizedStrength * normalizedStrength) + (forceExponent * normalizedStrength);
         // Alternatively, you could use Mathf.Sqrt(normalizedStrength) for a different curve
         // Or even an exponential function Mathf.Exp(normalizedStrength) - 1; (adjust as needed)
 
-        Debug.Log("strenght: " + strength.ToString() + " normalized strength: " + normalizedStrength.ToString() + " forceMultiplayer: " + forceMultiplier.ToString());
+        //Debug.Log("strenght: " + strength.ToString() + " normalized strength: " + normalizedStrength.ToString() + " forceMultiplayer: " + forceMultiplier.ToString());
 
         // Apply the scaled force
-        rigidbody.AddForce(-direction * forceMultiplier * shotPower);
+        Vector3 force = -direction * forceMultiplier * shotPower;
+        force.y = 0;
+        _rigidbody.AddForce(force);
 
         Strokes++;
         strokesText.text = "Strokes: " + Strokes.ToString();
         isIdle = false;
-        Debug.Log("i shot him");
+        //Debug.Log("i shot him");
 
     }
 
@@ -216,27 +226,30 @@ public class Udarac : MonoBehaviour
 
     private void Stop()
     {
-        if (rigidbody.velocity.magnitude < stopVelocity && Mathf.Abs(rigidbody.angularVelocity.magnitude) < stopVelocity)
+        if (Mathf.Abs(_rigidbody.velocity.magnitude) < stopVelocity && Mathf.Abs(_rigidbody.angularVelocity.magnitude) < stopVelocity)
         {
-            rigidbody.velocity = Vector3.zero;
-            rigidbody.angularVelocity = Vector3.zero;
+            //Debug.Log("<color=green>Stop() function called!</color> Velocity before zeroing: " + _rigidbody.velocity.magnitude + ", Angular Velocity: " + _rigidbody.angularVelocity.magnitude); // Debug log when Stop is called
+
+            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.angularVelocity = Vector3.zero;
 
             // Optional: Manually set the position to correct minor bounces
             Vector3 position = transform.position;
-            transform.position = new Vector3(position.x, Mathf.Round(position.y * 1000f) / 1000f, position.z);
+            //transform.position = new Vector3(position.x, Mathf.Round(position.y * 1000f) / 1000f, position.z);
             // Make the Rigidbody kinematic to prevent further physics interactions
             //
             //rigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
-            //rigidbody.isKinematic = true;
+            //_rigidbody.isKinematic = true;
             isIdle = true;
             //ballMaterial.bounceCombine = PhysicMaterialCombine.Minimum;
+            //Debug.Log("<color=blue>Velocity after zeroing:</color> " + _rigidbody.velocity.magnitude + ", Angular Velocity: " + _rigidbody.angularVelocity.magnitude); // Verify velocity is zeroed
             //Debug.Log("uso sam u if stopa");
         }
         //rigidbody.velocity = Vector3.zero;
         //rigidbody.angularVelocity = Vector3.zero;
         //isIdle = true;
         //Debug.Log("mf is stoped");
-        //rigidbody.isKinematic = false;
+        //_rigidbody.isKinematic = false;
     }
 
     private Vector3? CastMouseClickRay() //invisible floor required on every level for it to work

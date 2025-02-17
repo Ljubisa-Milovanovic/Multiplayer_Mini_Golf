@@ -6,13 +6,15 @@ public class WallDetector : MonoBehaviour
 {
     private Udarac udarac;
 
-    private Quaternion initialLocalRotation;
+    
     void LateUpdate()
     {
         // Reset the local rotation to the initial rotation
-        //transform.localRotation = initialLocalRotation;
+        
         transform.rotation = Quaternion.identity;
+        //Debug.Log("rotaija = " + transform.rotation);
     }
+    
 
     void Start()
     {
@@ -25,14 +27,14 @@ public class WallDetector : MonoBehaviour
             Debug.LogError("Udarac reference not found on the parent object!");
         }
         // Store the initial local rotation of the WallDetector
-        initialLocalRotation = transform.localRotation;
     }
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("Nesto me je pipnulo ...zid..... PAUSE");
         // set bouncines to 1
+        Debug.Log("Collider entered: " + other.gameObject.name );//+ " tag:" + other.gameObject.tag
         udarac.ballMaterial.bounceCombine = PhysicMaterialCombine.Average;
-        Debug.Log("enter: " + udarac.ballMaterial.bounceCombine);
+        //Debug.Log("enter: " + udarac.ballMaterial.bounceCombine);
 
     }
 
@@ -41,7 +43,7 @@ public class WallDetector : MonoBehaviour
     {
         //set bouncines to 0
         udarac.ballMaterial.bounceCombine = PhysicMaterialCombine.Minimum;
-        Debug.Log("exit: " + udarac.ballMaterial.bounceCombine);
+        //Debug.Log("exit: " + udarac.ballMaterial.bounceCombine);
     }
 
     private void OnTriggerStay(Collider other)
@@ -57,7 +59,7 @@ public class WallDetector : MonoBehaviour
             {
                 udarac.ballMaterial.bounceCombine = PhysicMaterialCombine.Average;
             }
-            Debug.Log("stay: " + udarac.ballMaterial.bounceCombine);
+            //Debug.Log("stay: " + udarac.ballMaterial.bounceCombine);
         
         
     }
