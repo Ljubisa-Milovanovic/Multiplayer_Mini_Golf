@@ -16,8 +16,9 @@ public class Udarac : MonoBehaviour
     Renderer rend;
 
     [SerializeField] private float shotPower;
-    [SerializeField] private float MaxPower;
+    [SerializeField] private float MaxPower=0.6f;//0.5-0.8
     [SerializeField] private float stopVelocity = .05f; //The velocity below which the rigidbody will be considered as stopped
+    [SerializeField] private float forceExponent = 2.5f;
 
     [SerializeField] private LineRenderer lineRenderer;
 
@@ -118,6 +119,14 @@ public class Udarac : MonoBehaviour
 
         Vector3? worldPoint = CastMouseClickRay();
 
+        //just a test---------------------------
+
+        Vector3 horizontalWorldPoint = new Vector3(worldPoint.Value.x, transform.position.y, worldPoint.Value.z);
+        float distance = Vector3.Distance(transform.position, horizontalWorldPoint);
+        float strength = Mathf.Clamp(distance, 0f, MaxPower) / MaxPower;
+        Debug.Log(" Snaga: " + strength.ToString());
+        //just a test---------------------------
+
         if (!worldPoint.HasValue)
         {
             return;
@@ -145,23 +154,65 @@ public class Udarac : MonoBehaviour
 
         Vector3 direction = (horizontalWorldPoint - transform.position).normalized;
         float strength = Vector3.Distance(transform.position, horizontalWorldPoint);
-        if(strength >= MaxPower)
-            strength = MaxPower;
+
+
+        // Clamp strength to MaxPower
+        strength = Mathf.Clamp(strength, 0f, MaxPower);
+
+        // --- Non-Linear Force Scaling ---
+        // Normalize strength to a 0-1 range based on MaxPower
+        float normalizedStrength = strength / MaxPower;
+
+        // Apply a power function or other non-linear curve to normalizedStrength
+        //float forceMultiplier = Mathf.Pow(normalizedStrength, forceExponent)*7; // Example: Square function
+        //float forceMultiplier = normalizedStrength;
+        float forceMultiplier = (normalizedStrength * normalizedStrength) + (0.5f * normalizedStrength);
+        // Alternatively, you could use Mathf.Sqrt(normalizedStrength) for a different curve
+        // Or even an exponential function Mathf.Exp(normalizedStrength) - 1; (adjust as needed)
+
+        Debug.Log("strenght: " + strength.ToString() + " normalized strength: " + normalizedStrength.ToString() + " forceMultiplayer: " + forceMultiplier.ToString());
+
+        // Apply the scaled force
+        rigidbody.AddForce(-direction * forceMultiplier * shotPower);
+
         Strokes++;
         strokesText.text = "Strokes: " + Strokes.ToString();
-        rigidbody.AddForce(-direction * strength * shotPower); //ne dodat forcemode.impulse
         isIdle = false;
-        Debug.Log("i shot him "); //strenght: "+strength + " shotPower: " + shotPower 
+        Debug.Log("i shot him");
+
     }
 
     private void DrawLine(Vector3 worldPoint)
     {
+        //Vector3 horizontalWorldPoint = new Vector3(worldPoint.x, transform.position.y, worldPoint.z);
+        float distance = Vector3.Distance(transform.position, worldPoint);
+
+        Vector3 targetWorldPoint = worldPoint; // Assume original worldPoint by default
+
+        if (distance > MaxPower)
+        {
+            // Calculate the direction vector from transform.position to horizontalWorldPoint
+            Vector3 direction = (worldPoint - transform.position).normalized;
+
+            // Multiply the normalized direction by 0.6f to get a vector of length 0.6f
+            Vector3 limitedDirection = direction * MaxPower;
+
+            // Calculate the limited world point by adding the limited direction to transform.position
+            Vector3 limitedWorldPoint = transform.position + limitedDirection;
+
+            // Set the y component of the limitedWorldPoint to be the same as the original worldPoint to maintain vertical position
+            limitedWorldPoint.y = worldPoint.y; // or transform.position.y if you want line always in horizontal plane of origin
+
+            targetWorldPoint = limitedWorldPoint;
+        }
+
         Vector3[] positions = {
         transform.position,
-        worldPoint};
+        targetWorldPoint};
         lineRenderer.SetPositions(positions);
         lineRenderer.enabled = true;
     }
+    
 
     private void Stop()
     {

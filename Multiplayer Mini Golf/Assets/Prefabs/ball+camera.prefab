@@ -201,12 +201,12 @@ PrefabInstance:
     - target: {fileID: -1220778443980898617, guid: 770e3b76121f8ca4aa68df368555c50a,
         type: 3}
       propertyPath: MaxPower
-      value: 2
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: -1220778443980898617, guid: 770e3b76121f8ca4aa68df368555c50a,
         type: 3}
       propertyPath: shotPower
-      value: 500
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: -1220778443980898617, guid: 770e3b76121f8ca4aa68df368555c50a,
         type: 3}
@@ -239,6 +239,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 530488814285075657, guid: 770e3b76121f8ca4aa68df368555c50a,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 530488814285075657, guid: 770e3b76121f8ca4aa68df368555c50a,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 530488814285075657, guid: 770e3b76121f8ca4aa68df368555c50a,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.075
       objectReference: {fileID: 0}
     - target: {fileID: 530488814285075657, guid: 770e3b76121f8ca4aa68df368555c50a,
         type: 3}
