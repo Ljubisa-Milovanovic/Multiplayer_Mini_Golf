@@ -63,7 +63,13 @@ public class Udarac : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Debug.Log("<color=yellow>fixedupdate function called!</color> Velocity before zeroing: " + _rigidbody.velocity.magnitude + ", Angular Velocity: " + _rigidbody.angularVelocity.magnitude); // Debug log when Stop is called
+            /*
+            //it kinda solves the problem but not the root of the problem
+            Vector3 velocity = _rigidbody.velocity;
+            velocity.y = 0; // Eliminate vertical velocity
+            _rigidbody.velocity = velocity;
+            */
+        //Debug.Log("<color=yellow>fixedupdate function called!</color> Velocity before zeroing: " + _rigidbody.velocity.magnitude +" y: "+_rigidbody.velocity.y + ", Angular Velocity: " + _rigidbody.angularVelocity.magnitude); // Debug log when Stop is called
         if (stopStopper<20)
             stopStopper++;
         isGrounded = Mathf.Abs(lastYposition - transform.position.y) < groundedThreshold;
@@ -75,10 +81,6 @@ public class Udarac : MonoBehaviour
         }
         if (isIdle && isGrounded)
         {
-            
-                //Vector3 velocity = _rigidbody.velocity;
-                //velocity.y = 0; // Eliminate vertical velocity
-                //_rigidbody.velocity = velocity;
             
             //Debug.Log("mf is idle and ready to explode.......PAUSE");
             if (materialCounter < 15)
@@ -161,6 +163,7 @@ public class Udarac : MonoBehaviour
         Vector3 horizontalWorldPoint = new Vector3(worldPoint.x, transform.position.y, worldPoint.z);
 
         Vector3 direction = (horizontalWorldPoint - transform.position).normalized;
+        Debug.Log("razlika:" +horizontalWorldPoint.y +" transform " +transform.position.y + " direction" + direction);
         float strength = Vector3.Distance(transform.position, horizontalWorldPoint);
 
 
@@ -179,12 +182,13 @@ public class Udarac : MonoBehaviour
         // Or even an exponential function Mathf.Exp(normalizedStrength) - 1; (adjust as needed)
 
         //Debug.Log("strenght: " + strength.ToString() + " normalized strength: " + normalizedStrength.ToString() + " forceMultiplayer: " + forceMultiplier.ToString());
-
+        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.angularVelocity = Vector3.zero;
         // Apply the scaled force
         Vector3 force = -direction * forceMultiplier * shotPower;
         force.y = 0;
         _rigidbody.AddForce(force);
-
+        Debug.Log("<color=green>Froce:</color> " + force + ", force y: " + force.y); // Debug log when Stop is called
         Strokes++;
         strokesText.text = "Strokes: " + Strokes.ToString();
         isIdle = false;
@@ -233,9 +237,6 @@ public class Udarac : MonoBehaviour
             _rigidbody.velocity = Vector3.zero;
             _rigidbody.angularVelocity = Vector3.zero;
 
-            // Optional: Manually set the position to correct minor bounces
-            Vector3 position = transform.position;
-            //transform.position = new Vector3(position.x, Mathf.Round(position.y * 1000f) / 1000f, position.z);
             // Make the Rigidbody kinematic to prevent further physics interactions
             //
             //rigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;

@@ -68,6 +68,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f9a9681eb8e70f94f8f62d5108360025,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f9a9681eb8e70f94f8f62d5108360025,
         type: 3}
       propertyPath: m_Name
@@ -80,7 +85,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f9a9681eb8e70f94f8f62d5108360025,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6298622603610255147}
+      addedObject: {fileID: 7633743280568017561}
   m_SourcePrefab: {fileID: 100100000, guid: f9a9681eb8e70f94f8f62d5108360025, type: 3}
 --- !u!1 &11225359708298690 stripped
 GameObject:
@@ -88,7 +93,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 929580689939931283}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &6298622603610255147
+--- !u!64 &7633743280568017561
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -30,15 +30,14 @@ public class WallDetector : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("Nesto me je pipnulo ...zid..... PAUSE");
-        // set bouncines to 1
-        Debug.Log("Collider entered: " + other.gameObject.name );//+ " tag:" + other.gameObject.tag
+        
+        //Debug.Log("Collider entered: " + other.gameObject.name );//+ " tag:" + other.gameObject.tag
         udarac.ballMaterial.bounceCombine = PhysicMaterialCombine.Average;
         //Debug.Log("enter: " + udarac.ballMaterial.bounceCombine);
 
     }
 
-    // Optional: This method is called when another collider exits the trigger collider
+    
     private void OnTriggerExit(Collider other)
     {
         //set bouncines to 0
