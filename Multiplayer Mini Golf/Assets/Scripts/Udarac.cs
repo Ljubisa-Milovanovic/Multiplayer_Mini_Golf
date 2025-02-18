@@ -60,7 +60,12 @@ public class Udarac : MonoBehaviour
 
     }
 
-
+    private void LateUpdate()
+    {
+        Vector3 velocity = _rigidbody.velocity;
+        velocity.y = 0; // Eliminate vertical velocity
+        _rigidbody.velocity = velocity;
+    }
     private void FixedUpdate()
     {
             /*
