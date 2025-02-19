@@ -20,8 +20,9 @@
 
 //    }
 //}
+using Unity.Netcode;
 using UnityEngine;
-public class CameraFollow : MonoBehaviour
+public class CameraFollow : NetworkBehaviour
 {
     private Vector3 _originalOffset;
     private Vector3 _currentOffset;
@@ -37,7 +38,8 @@ public class CameraFollow : MonoBehaviour
     private float _currentYRotation = 0f;
     private float _zoomFactor = 1.0f;
 
-    private void Awake()
+
+    public override void OnNetworkSpawn()
     {
         _originalOffset = transform.position - target.position;
         _currentOffset = _originalOffset;

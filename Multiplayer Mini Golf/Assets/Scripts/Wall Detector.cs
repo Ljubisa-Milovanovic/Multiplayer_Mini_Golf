@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class WallDetector : MonoBehaviour
+public class WallDetector : NetworkBehaviour
 {
     private Udarac udarac;
 
@@ -14,9 +15,8 @@ public class WallDetector : MonoBehaviour
         transform.rotation = Quaternion.identity;
         //Debug.Log("rotaija = " + transform.rotation);
     }
-    
 
-    void Start()
+    public override void OnNetworkSpawn()
     {
         // Get reference to the Udarac script on the parent GameObject (the ball)
         udarac = GetComponentInParent<Udarac>();
@@ -28,6 +28,8 @@ public class WallDetector : MonoBehaviour
         }
         // Store the initial local rotation of the WallDetector
     }
+ 
+    
     private void OnTriggerEnter(Collider other)
     {
         

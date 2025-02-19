@@ -434,8 +434,7 @@ MonoBehaviour:
   forceExponent: 0.5
   lineRenderer: {fileID: 4833250190668008559}
   isIdle: 0
-  strokesText: {fileID: 760318413530666231, guid: e2bd42fb6cdcb0446af77de3d2d1072e,
-    type: 3}
+  strokesText: {fileID: 0}
 --- !u!114 &1316349896182536605
 MonoBehaviour:
   m_ObjectHideFlags: 0

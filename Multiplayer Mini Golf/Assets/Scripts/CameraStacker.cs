@@ -1,11 +1,12 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public class CameraStacker : MonoBehaviour
+public class CameraStacker : NetworkBehaviour
 {
-    void Start()
+
+    public override void OnNetworkSpawn()
     {
-        // Get the Universal Additional Camera Data component
         var cameraData = GetComponent<UniversalAdditionalCameraData>();
         if (cameraData != null)
         {

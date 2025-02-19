@@ -43,6 +43,11 @@ public class Udarac : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        _rigidbody = GetComponent<Rigidbody>();
+
+        isAiming = false;
+        lineRenderer.enabled = false;
+
         lastYposition = transform.position.y;
         rend = GetComponent<Renderer>();
         rend.enabled = true;
@@ -59,7 +64,7 @@ public class Udarac : NetworkBehaviour
             Debug.LogError("No camera found under Player GameObject!");
         }
 
-            
+
 
         ballMaterial.bounciness = 1f; // Default to no bounce
         ballMaterial.bounceCombine = PhysicMaterialCombine.Minimum;//average
@@ -70,17 +75,15 @@ public class Udarac : NetworkBehaviour
         if (!IsOwner)
         {
             _camera.enabled = false;
-
         }
+
+
+        //set stroke text to strokeCounter tag
+
+        strokesText = GameObject.FindWithTag("strokeCounter").GetComponent<TextMeshProUGUI>();
+
     }
 
-    private void Awake()
-    {
-        _rigidbody = GetComponent<Rigidbody>();
-
-        isAiming = false;
-        lineRenderer.enabled = false;
-    }
 
 
     private void LateUpdate()
