@@ -7,6 +7,7 @@ TagManager:
   - hole checker
   - player ball
   - bound box
+  - UICamera
   layers:
   - Default
   - TransparentFX

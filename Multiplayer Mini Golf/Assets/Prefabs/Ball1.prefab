@@ -287,7 +287,7 @@ GameObject:
   - component: {fileID: 629395780341477173}
   - component: {fileID: 3431326977659965668}
   - component: {fileID: 3631928353694784438}
-  - component: {fileID: -3144070050832134582}
+  - component: {fileID: 1316349896182536605}
   m_Layer: 0
   m_Name: Ball1
   m_TagString: player ball
@@ -436,7 +436,7 @@ MonoBehaviour:
   isIdle: 0
   strokesText: {fileID: 760318413530666231, guid: e2bd42fb6cdcb0446af77de3d2d1072e,
     type: 3}
---- !u!114 &-3144070050832134582
+--- !u!114 &1316349896182536605
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -445,7 +445,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6875324393811762243}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 20be2a411eb017d47aff7de3a791bba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   UseUnreliableDeltas: 0

@@ -3,12 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.Netcode;
 
 
-public class Udarac : MonoBehaviour
+public class Udarac : NetworkBehaviour
 {
+    private Camera _camera;
+    //NetworkVariable<int> Stroke = new NetworkVariable<int>(0);
+
+
+
     public PhysicMaterial ballMaterial;
     public int Strokes = 0;
+
+
 
     public Material[] materials;
     private int materialCounter = 0;
@@ -33,15 +41,7 @@ public class Udarac : MonoBehaviour
 
     public TextMeshProUGUI strokesText;
 
-    private void Awake()
-    {
-        _rigidbody = GetComponent<Rigidbody>();
-
-        isAiming = false;
-        lineRenderer.enabled = false;
-    }
-
-    void Start()
+    public override void OnNetworkSpawn()
     {
         lastYposition = transform.position.y;
         rend = GetComponent<Renderer>();
@@ -50,30 +50,53 @@ public class Udarac : MonoBehaviour
 
         _rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
 
+        Transform ballParent = transform.parent;
+        // Find the Camera component in the player's children
+        _camera = ballParent.GetComponentInChildren<Camera>();
 
-        
+        if (_camera == null)
+        {
+            Debug.LogError("No camera found under Player GameObject!");
+        }
+
+            
+
         ballMaterial.bounciness = 1f; // Default to no bounce
         ballMaterial.bounceCombine = PhysicMaterialCombine.Minimum;//average
 
         // Assign the material to the ball's collider
         GetComponent<Collider>().material = ballMaterial;
 
+        if (!IsOwner)
+        {
+            _camera.enabled = false;
+
+        }
     }
+
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+
+        isAiming = false;
+        lineRenderer.enabled = false;
+    }
+
 
     private void LateUpdate()
     {
         Vector3 velocity = _rigidbody.velocity;
-        velocity.y = 0; // Eliminate vertical velocity
+        if(velocity.y>0)
+            velocity.y = 0; // Eliminate vertical velocity
         _rigidbody.velocity = velocity;
     }
     private void FixedUpdate()
     {
-            /*
-            //it kinda solves the problem but not the root of the problem
-            Vector3 velocity = _rigidbody.velocity;
-            velocity.y = 0; // Eliminate vertical velocity
-            _rigidbody.velocity = velocity;
-            */
+        if (!IsOwner)
+        {
+            return;
+
+        }
         //Debug.Log("<color=yellow>fixedupdate function called!</color> Velocity before zeroing: " + _rigidbody.velocity.magnitude +" y: "+_rigidbody.velocity.y + ", Angular Velocity: " + _rigidbody.angularVelocity.magnitude); // Debug log when Stop is called
         if (stopStopper<20)
             stopStopper++;
@@ -274,7 +297,7 @@ public class Udarac : MonoBehaviour
         
         if (Physics.Raycast(worldMousePosNear, worldMousePosFar - worldMousePosNear, out hit, float.PositiveInfinity))
         {
-            //Debug.Log("hit is: " + hit.point.ToString());
+            Debug.Log("hit is: " + hit.point.ToString());
             return hit.point;
         }
         else
