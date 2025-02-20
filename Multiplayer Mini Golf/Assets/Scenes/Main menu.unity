@@ -482,6 +482,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1123959129 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3027488849936335056, guid: d4521f354f686334cb01779af60ac51a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1617839966}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1123959135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123959129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1795299763
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1001 &1239952001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -631,7 +658,7 @@ GameObject:
   - component: {fileID: 1597436663}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -862,7 +889,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3027488849936335056, guid: d4521f354f686334cb01779af60ac51a,
+        type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 1123959135}
   m_SourcePrefab: {fileID: 100100000, guid: d4521f354f686334cb01779af60ac51a, type: 3}
 --- !u!1001 &1630145268
 PrefabInstance:

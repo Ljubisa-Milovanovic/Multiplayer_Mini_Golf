@@ -10,7 +10,7 @@ public class Udarac : NetworkBehaviour
 {
     private Camera _camera;
     //NetworkVariable<int> Stroke = new NetworkVariable<int>(0);
-
+    private Timer _timer;
 
 
     public PhysicMaterial ballMaterial;
@@ -43,6 +43,16 @@ public class Udarac : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        _timer = FindObjectOfType<Timer>();
+
+        if (_timer != null)
+        {
+            _timer.StartFlag = true;
+        }
+        else
+        {
+            Debug.LogError("Timer component not found in the scene.");
+        }
         _rigidbody = GetComponent<Rigidbody>();
 
         isAiming = false;
@@ -231,33 +241,26 @@ public class Udarac : NetworkBehaviour
     {
         //Vector3 horizontalWorldPoint = new Vector3(worldPoint.x, transform.position.y, worldPoint.z);
         float distance = Vector3.Distance(transform.position, worldPoint);
-
         Vector3 targetWorldPoint = worldPoint; // Assume original worldPoint by default
 
         if (distance > MaxPower)
         {
-            // Calculate the direction vector from transform.position to horizontalWorldPoint
             Vector3 direction = (worldPoint - transform.position).normalized;
-
-            // Multiply the normalized direction by 0.6f to get a vector of length 0.6f
             Vector3 limitedDirection = direction * MaxPower;
-
-            // Calculate the limited world point by adding the limited direction to transform.position
             Vector3 limitedWorldPoint = transform.position + limitedDirection;
-
-            // Set the y component of the limitedWorldPoint to be the same as the original worldPoint to maintain vertical position
             limitedWorldPoint.y = worldPoint.y; // or transform.position.y if you want line always in horizontal plane of origin
-
             targetWorldPoint = limitedWorldPoint;
         }
+
 
         Vector3[] positions = {
         transform.position,
         targetWorldPoint};
         lineRenderer.SetPositions(positions);
         lineRenderer.enabled = true;
+        Debug.Log("<color=green>Draw line</color> transform " + transform.position + ", target: " + targetWorldPoint); // Debug log when Stop is called
     }
-    
+
 
     private void Stop()
     {
@@ -300,7 +303,7 @@ public class Udarac : NetworkBehaviour
         
         if (Physics.Raycast(worldMousePosNear, worldMousePosFar - worldMousePosNear, out hit, float.PositiveInfinity))
         {
-            Debug.Log("hit is: " + hit.point.ToString());
+            Debug.Log("<color=red>hit is: </color>" + hit.point.ToString());
             return hit.point;
         }
         else
