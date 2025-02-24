@@ -7371,6 +7371,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: hole-open (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5600902423620042541, guid: c52e87af154af07428a87a97e28b4c40,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
