@@ -47,6 +47,10 @@ public class CameraFollow : NetworkBehaviour
 
     private void FixedUpdate()
     {
+        if (!IsOwner)
+        {
+            return;
+        }
         HandleInput();
 
         if (Input.GetMouseButton(1))
