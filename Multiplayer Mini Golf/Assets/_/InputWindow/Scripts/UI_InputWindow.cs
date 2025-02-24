@@ -1,16 +1,4 @@
-﻿/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -91,7 +79,7 @@ public class UI_InputWindow : MonoBehaviour {
     }
 
     public static void Show_Static(string titleString, int defaultInt, Action onCancel, Action<int> onOk) {
-        instance.Show(titleString, defaultInt.ToString(), "0123456789-", 20, onCancel, 
+        instance.Show(titleString, defaultInt.ToString(), "1234", 20, onCancel, 
             (string inputText) => {
                 // Try to Parse input string
                 if (int.TryParse(inputText, out int _i)) {

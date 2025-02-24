@@ -17,14 +17,14 @@ public class EditPlayerName : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI playerNameText;
 
 
-    private string playerName = "Stojane,jel_blorikas"; //pumpaj, cup pohlepe
+    private string playerName = "Stojane_jel_blorikas"; //pumpaj, cup pohlepe
 
 
     private void Awake() {
         Instance = this;
 
         GetComponent<Button>().onClick.AddListener(() => {
-            UI_InputWindow.Show_Static("Player name", playerName, "abcdefghijklmnopqrstuvxywzABCDEFGHIJKLMNOPQRSTUVXYWZ_,-", 20,
+            UI_InputWindow.Show_Static("Player name", playerName, "abcdefghijklmnopqrstuvxywzABCDEFGHIJKLMNOPQRSTUVXYWZ_-", 20,
             () => {
                 // Cancel
             },

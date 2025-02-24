@@ -17,9 +17,10 @@ public class LobbyUI : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI lobbyNameText;
     [SerializeField] private TextMeshProUGUI playerCountText;
     [SerializeField] private TextMeshProUGUI gameModeText;
-    [SerializeField] private Button changeMarineButton;
-    [SerializeField] private Button changeNinjaButton;
-    [SerializeField] private Button changeZombieButton;
+    [SerializeField] private Button changeGrinButton;
+    [SerializeField] private Button changeCatButton;
+    [SerializeField] private Button changePlagueButton;
+    [SerializeField] private Button changeGnomeButton;
     [SerializeField] private Button leaveLobbyButton;
     [SerializeField] private Button changeGameModeButton;
 
@@ -29,14 +30,17 @@ public class LobbyUI : MonoBehaviour {
 
         playerSingleTemplate.gameObject.SetActive(false);
 
-        changeMarineButton.onClick.AddListener(() => {
-            LobbyManager.Instance.UpdatePlayerCharacter(LobbyManager.PlayerCharacter.Marine);
+        changeGrinButton.onClick.AddListener(() => {
+            LobbyManager.Instance.UpdatePlayerCharacter(LobbyManager.PlayerCharacter.Grin);
         });
-        changeNinjaButton.onClick.AddListener(() => {
-            LobbyManager.Instance.UpdatePlayerCharacter(LobbyManager.PlayerCharacter.Ninja);
+        changeCatButton.onClick.AddListener(() => {
+            LobbyManager.Instance.UpdatePlayerCharacter(LobbyManager.PlayerCharacter.Cat);
         });
-        changeZombieButton.onClick.AddListener(() => {
-            LobbyManager.Instance.UpdatePlayerCharacter(LobbyManager.PlayerCharacter.Zombie);
+        changePlagueButton.onClick.AddListener(() => {
+            LobbyManager.Instance.UpdatePlayerCharacter(LobbyManager.PlayerCharacter.Plague);
+        });
+        changeGnomeButton.onClick.AddListener(() => {
+            LobbyManager.Instance.UpdatePlayerCharacter(LobbyManager.PlayerCharacter.Gnome);
         });
 
         leaveLobbyButton.onClick.AddListener(() => {
