@@ -56,7 +56,7 @@ public class LobbyCreateUI : MonoBehaviour {
         });
 
         maxPlayersButton.onClick.AddListener(() => {
-            UI_InputWindow.Show_Static("Max Players", maxPlayers,
+            UI_InputWindow.Show_Static("Max Players(1-4)", maxPlayers,
             () => {
                 // Cancel
             },
@@ -65,18 +65,19 @@ public class LobbyCreateUI : MonoBehaviour {
                 UpdateText();
             });
         });
-
+        
         gameModeButton.onClick.AddListener(() => {
             switch (gameMode) {
                 default:
-                case LobbyManager.GameMode.CaptureTheFlag:
-                    gameMode = LobbyManager.GameMode.Conquest;
+                case LobbyManager.GameMode.Solo:
+                    gameMode = LobbyManager.GameMode.Teams;
                     break;
-                case LobbyManager.GameMode.Conquest:
-                    gameMode = LobbyManager.GameMode.CaptureTheFlag;
+                case LobbyManager.GameMode.Teams:
+                    gameMode = LobbyManager.GameMode.Solo;
                     break;
             }
             UpdateText();
+            
         });
 
         Hide();
@@ -99,7 +100,7 @@ public class LobbyCreateUI : MonoBehaviour {
         lobbyName = "MyLobby";
         isPrivate = false;
         maxPlayers = 4;
-        gameMode = LobbyManager.GameMode.CaptureTheFlag;
+        gameMode = LobbyManager.GameMode.Solo;
 
         UpdateText();
     }

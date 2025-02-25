@@ -36,8 +36,8 @@ public class LobbyManager : MonoBehaviour {
 
 
     public enum GameMode {
-        CaptureTheFlag,
-        Conquest
+        Solo,
+        Teams
     }
 
     public enum PlayerCharacter {
@@ -165,11 +165,11 @@ public class LobbyManager : MonoBehaviour {
 
             switch (gameMode) {
                 default:
-                case GameMode.CaptureTheFlag:
-                    gameMode = GameMode.Conquest;
+                case GameMode.Solo:
+                    gameMode = GameMode.Teams;
                     break;
-                case GameMode.Conquest:
-                    gameMode = GameMode.CaptureTheFlag;
+                case GameMode.Teams:
+                    gameMode = GameMode.Solo;
                     break;
             }
 
