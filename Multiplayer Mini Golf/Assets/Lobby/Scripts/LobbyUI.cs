@@ -23,6 +23,7 @@ public class LobbyUI : MonoBehaviour {
     [SerializeField] private Button changeGnomeButton;
     [SerializeField] private Button leaveLobbyButton;
     [SerializeField] private Button changeGameModeButton;
+    [SerializeField] private Button proceedButton;
 
 
     private void Awake() {
@@ -50,6 +51,9 @@ public class LobbyUI : MonoBehaviour {
         changeGameModeButton.onClick.AddListener(() => {
             LobbyManager.Instance.ChangeGameMode();
         });
+        proceedButton.onClick.AddListener(() => {
+            LobbyManager.Instance.Proceed();
+        });
     }
 
     private void Start() {
@@ -58,6 +62,7 @@ public class LobbyUI : MonoBehaviour {
         LobbyManager.Instance.OnLobbyGameModeChanged += UpdateLobby_Event;
         LobbyManager.Instance.OnLeftLobby += LobbyManager_OnLeftLobby;
         LobbyManager.Instance.OnKickedFromLobby += LobbyManager_OnLeftLobby;
+        LobbyManager.Instance.OnGameStarted += LobbyManager_OnLeftLobby;// treba da se hideuje lobyy ceo
 
         Hide();
     }

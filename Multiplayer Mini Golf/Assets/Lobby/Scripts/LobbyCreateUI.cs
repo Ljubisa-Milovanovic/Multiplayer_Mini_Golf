@@ -56,7 +56,7 @@ public class LobbyCreateUI : MonoBehaviour {
         });
 
         maxPlayersButton.onClick.AddListener(() => {
-            UI_InputWindow.Show_Static("Max Players(1-4)", maxPlayers,
+            UI_InputWindow.Show_Static("Max Players(1-8)", maxPlayers,
             () => {
                 // Cancel
             },

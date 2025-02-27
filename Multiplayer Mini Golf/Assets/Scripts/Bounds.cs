@@ -24,6 +24,11 @@ public class Bounds : MonoBehaviour
                 }
 
                 Debug.Log("Ball went out of bounds and was reset to the last valid position.");
+
+                if (LobbyManager.Instance.gameeMode == LobbyManager.GameMode.Teams)
+                {
+                    Udarac.Instance.Strokes += 5;
+                }
             }
         }
         }

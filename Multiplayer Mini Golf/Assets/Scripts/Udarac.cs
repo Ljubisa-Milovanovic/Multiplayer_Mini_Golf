@@ -8,6 +8,7 @@ using Unity.Netcode;
 
 public class Udarac : NetworkBehaviour
 {
+    public static Udarac Instance { get; private set; }
     private Camera _camera;
     //NetworkVariable<int> Stroke = new NetworkVariable<int>(0);
     private Timer _timer;

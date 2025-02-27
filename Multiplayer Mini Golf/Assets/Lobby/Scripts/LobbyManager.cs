@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LobbyManager : MonoBehaviour {
@@ -16,10 +18,12 @@ public class LobbyManager : MonoBehaviour {
     public const string KEY_PLAYER_NAME = "PlayerName";
     public const string KEY_PLAYER_CHARACTER = "Character";
     public const string KEY_GAME_MODE = "GameMode";
+    public const string KEY_START_GAME = "0"; //Start game
 
 
 
     public event EventHandler OnLeftLobby;
+    public event EventHandler OnGameStarted;// ?
 
     public event EventHandler<LobbyEventArgs> OnJoinedLobby;
     public event EventHandler<LobbyEventArgs> OnJoinedLobbyUpdate;
@@ -127,6 +131,17 @@ public class LobbyManager : MonoBehaviour {
 
                     joinedLobby = null;
                 }
+
+                if (joinedLobby.Data[KEY_START_GAME].Value != "0") {
+                    if (!IsLobbyHost())
+                    {
+                        Relay.Instance.JoinRelay(joinedLobby.Data[KEY_START_GAME].Value);
+
+                        joinedLobby = null;
+                    }
+
+                    OnGameStarted?.Invoke(this, EventArgs.Empty); //If gamestarted    it invokes the event, passing this
+                }
             }
         }
     }
@@ -157,10 +172,11 @@ public class LobbyManager : MonoBehaviour {
             { KEY_PLAYER_CHARACTER, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, PlayerCharacter.Grin.ToString()) }
         });
     }
-
+    private GameMode gameMode;
+    public GameMode gameeMode { get; set; }
     public void ChangeGameMode() {
         if (IsLobbyHost()) {
-            GameMode gameMode =
+            gameMode =
                 Enum.Parse<GameMode>(joinedLobby.Data[KEY_GAME_MODE].Value);
 
             switch (gameMode) {
@@ -176,15 +192,39 @@ public class LobbyManager : MonoBehaviour {
             UpdateLobbyGameMode(gameMode);
         }
     }
+    public async void Proceed()
+    {
+        if (IsLobbyHost()) {
+            try
+            {
+                Debug.Log("Starting the host game");
+                string relayCode = await Relay.Instance.CreateRelay();
+
+                Lobby lobby = await Lobbies.Instance.UpdateLobbyAsync(joinedLobby.Id, new UpdateLobbyOptions
+                {
+                    Data = new Dictionary<string, DataObject>{
+                        {KEY_START_GAME, new DataObject(DataObject.VisibilityOptions.Member, relayCode) }
+                    }
+                });
+            }
+            catch (LobbyServiceException ex)
+            {
+                Debug.Log(ex);
+            }
+            
+        }
+        
+    }
 
     public async void CreateLobby(string lobbyName, int maxPlayers, bool isPrivate, GameMode gameMode) {
-        Player player = GetPlayer();
+         Unity.Services.Lobbies.Models.Player player = GetPlayer();
 
         CreateLobbyOptions options = new CreateLobbyOptions {
             Player = player,
             IsPrivate = isPrivate,
             Data = new Dictionary<string, DataObject> {
-                { KEY_GAME_MODE, new DataObject(DataObject.VisibilityOptions.Public, gameMode.ToString()) }
+                { KEY_GAME_MODE, new DataObject(DataObject.VisibilityOptions.Public, gameMode.ToString()) },
+                { KEY_START_GAME, new DataObject(DataObject.VisibilityOptions.Member, "0") }
             }
         };
 
