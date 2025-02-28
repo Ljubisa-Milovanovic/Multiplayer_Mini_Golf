@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class Bounds : MonoBehaviour
+public class Bounds : NetworkBehaviour
 {
     private void OnTriggerExit(Collider other)
     {
@@ -25,10 +26,14 @@ public class Bounds : MonoBehaviour
 
                 Debug.Log("Ball went out of bounds and was reset to the last valid position.");
 
-                if (LobbyManager.Instance.gameeMode == LobbyManager.GameMode.Teams)
+                if (IsOwner)
                 {
-                    Udarac.Instance.Strokes += 5;
+                    if (LobbyManager.Instance.gameeMode == LobbyManager.GameMode.Teams)
+                    {
+                        Udarac.Instance.Strokes += 5;
+                    }
                 }
+                
             }
         }
         }
