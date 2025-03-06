@@ -150,17 +150,17 @@ PrefabInstance:
     - target: {fileID: 1316349896182536605, guid: 847df4bd8efbf4b4b87de3bcddbfc9e7,
         type: 3}
       propertyPath: SyncRotAngleX
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1316349896182536605, guid: 847df4bd8efbf4b4b87de3bcddbfc9e7,
         type: 3}
       propertyPath: SyncRotAngleY
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1316349896182536605, guid: 847df4bd8efbf4b4b87de3bcddbfc9e7,
         type: 3}
       propertyPath: SyncRotAngleZ
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6500228242051584440, guid: 847df4bd8efbf4b4b87de3bcddbfc9e7,
         type: 3}
