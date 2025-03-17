@@ -93,10 +93,13 @@ public class LobbyUI : MonoBehaviour {
                 player.Id != AuthenticationService.Instance.PlayerId // Don't allow kick self
             );
 
+            
+
             lobbyPlayerSingleUI.UpdatePlayer(player);
         }
 
         changeGameModeButton.gameObject.SetActive(LobbyManager.Instance.IsLobbyHost());
+        proceedButton.gameObject.SetActive(LobbyManager.Instance.IsLobbyHost()) ;
 
         lobbyNameText.text = lobby.Name;
         playerCountText.text = lobby.Players.Count + "/" + lobby.MaxPlayers;

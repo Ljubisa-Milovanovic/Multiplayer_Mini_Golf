@@ -40,6 +40,11 @@ public class EditPlayerName : MonoBehaviour {
         playerNameText.text = playerName;
     }
 
+    public void DisableNameEdit()
+    {
+        GetComponent<Button>().onClick.RemoveAllListeners();
+    }
+
     private void Start() {
         OnNameChanged += EditPlayerName_OnNameChanged;
     }

@@ -44,6 +44,8 @@ public class Udarac : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        //transform.SetPositionAndRotation(transform.position, transform.rotation);
+
         _timer = FindObjectOfType<Timer>();
 
         if (_timer != null)

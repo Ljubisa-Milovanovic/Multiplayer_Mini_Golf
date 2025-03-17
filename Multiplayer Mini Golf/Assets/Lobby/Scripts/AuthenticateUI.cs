@@ -13,6 +13,7 @@ public class AuthenticateUI : MonoBehaviour {
         authenticateButton.onClick.AddListener(() => {
             LobbyManager.Instance.Authenticate(EditPlayerName.Instance.GetPlayerName());
             Hide();
+            EditPlayerName.Instance.DisableNameEdit();
         });
     }
 
