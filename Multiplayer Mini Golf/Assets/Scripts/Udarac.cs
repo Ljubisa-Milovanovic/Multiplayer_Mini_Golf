@@ -42,9 +42,13 @@ public class Udarac : NetworkBehaviour
 
     public TextMeshProUGUI strokesText;
 
+    [SerializeField] private Vector3 spawnPosition = new Vector3(0,3,0);
+
     public override void OnNetworkSpawn()
     {
-        //transform.SetPositionAndRotation(transform.position, transform.rotation);
+        
+        transform.position = spawnPosition;
+        Debug.Log($"Ball position after setting: {transform.position}");
 
         _timer = FindObjectOfType<Timer>();
 
