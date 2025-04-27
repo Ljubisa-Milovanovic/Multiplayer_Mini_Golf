@@ -17,7 +17,7 @@ public class Udarac : NetworkBehaviour
     public PhysicMaterial ballMaterial;
     public int Strokes = 0;
 
-
+    private System.Random rnd = new System.Random();
 
     public Material[] materials;
     private int materialCounter = 0;
@@ -42,14 +42,11 @@ public class Udarac : NetworkBehaviour
 
     public TextMeshProUGUI strokesText;
 
-    [SerializeField] private Vector3 spawnPosition = new Vector3(0,3,0);
+    private Vector3 spawnPosition = new Vector3(-1.5f,3,-10);
 
     public override void OnNetworkSpawn()
     {
-        
-        transform.position = spawnPosition;
-        Debug.Log($"Ball position after setting: {transform.position}");
-
+      
         _timer = FindObjectOfType<Timer>();
 
         if (_timer != null)
@@ -99,6 +96,20 @@ public class Udarac : NetworkBehaviour
 
         strokesText = GameObject.FindWithTag("strokeCounter").GetComponent<TextMeshProUGUI>();
 
+
+
+        
+
+        if (IsOwner)
+        {
+            spawnPosition += new Vector3((float)Math.Round(rnd.NextDouble() *0.5 + 0.25, 3), 0, (float)Math.Round(rnd.NextDouble() * 0.5 + 0.25, 3));
+            Debug.Log("<color=red>Ball position before setting:" + transform.position + ", spawn position : " + spawnPosition);
+            transform.position = spawnPosition;
+            Debug.Log("<color=green>Ball position after setting:" + transform.position + ", spawn position : " + spawnPosition);
+        }
+       
+
+
     }
 
 
@@ -109,6 +120,13 @@ public class Udarac : NetworkBehaviour
         if(velocity.y>0)
             velocity.y = 0; // Eliminate vertical velocity
         _rigidbody.velocity = velocity;
+
+        //if (IsOwner)
+        //{
+        //    Debug.Log("<color=red>Ball position before setting:" + transform.position + ", spawn position : " + spawnPosition);
+        //    transform.position = spawnPosition;
+        //    Debug.Log("<color=green>Ball position after setting:" +  transform.position + ", spawn position : " +spawnPosition);
+        //}
     }
     private void FixedUpdate()
     {
