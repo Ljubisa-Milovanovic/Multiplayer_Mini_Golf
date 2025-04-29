@@ -106,7 +106,7 @@ public class LobbyManager : MonoBehaviour {
                 float heartbeatTimerMax = 15f;
                 heartbeatTimer = heartbeatTimerMax;
 
-                Debug.Log("Heartbeat");
+                Debug.Log("<color=red>Heartbeat</color>");
                 await LobbyService.Instance.SendHeartbeatPingAsync(joinedLobby.Id);
             }
         }
