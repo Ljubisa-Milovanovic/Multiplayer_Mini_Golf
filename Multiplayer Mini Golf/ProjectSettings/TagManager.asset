@@ -9,6 +9,7 @@ TagManager:
   - bound box
   - UICamera
   - strokeCounter
+  - AudioDisabler
   layers:
   - Default
   - TransparentFX

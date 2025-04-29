@@ -54,6 +54,7 @@ public class Udarac : NetworkBehaviour
             Debug.LogError("Timer component not found in the scene.");
         }
         _rigidbody = GetComponent<Rigidbody>();
+        
 
         isAiming = false;
         lineRenderer.enabled = false;
@@ -92,7 +93,12 @@ public class Udarac : NetworkBehaviour
 
         strokesText = GameObject.FindWithTag("strokeCounter").GetComponent<TextMeshProUGUI>();
 
-        Aezakmi.Instance.SpawnPoint();
+        //_rigidbody.position = Vector3.zero;
+        //Aezakmi.Instance.SpawnPoint();
+
+        Camera Fcamera = GameObject.FindWithTag("AudioDisabler")?.GetComponent<Camera>();
+        if(Fcamera != null )
+            Fcamera.GetComponent<AudioListener>().enabled = false;
     }
 
 

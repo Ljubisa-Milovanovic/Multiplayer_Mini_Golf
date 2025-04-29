@@ -147,6 +147,11 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 3341057960
       objectReference: {fileID: 0}
+    - target: {fileID: -2634442911911442809, guid: 847df4bd8efbf4b4b87de3bcddbfc9e7,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4189952207
+      objectReference: {fileID: 0}
     - target: {fileID: 1316349896182536605, guid: 847df4bd8efbf4b4b87de3bcddbfc9e7,
         type: 3}
       propertyPath: SyncRotAngleX

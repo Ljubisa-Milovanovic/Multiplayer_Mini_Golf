@@ -8,19 +8,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Lobby/Lobby.unity
     guid: be8200a558cfff84b8ce074fa6e33558
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Main menu.unity
     guid: f80d4458d6aa34e4d971134c4d4249d1
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Level_0_Test.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/!Lvl Creator,lvl-1.unity
     guid: d2fd95c0012ab6848a474d6b536660f4
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Level_2.unity
     guid: b42468611f82e0142a44ae629d4a908e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Multiplayer_test_level.unity
     guid: 4ab255a6b2d398344b330126f48c74aa
   m_configObjects: {}
