@@ -10,6 +10,7 @@ TagManager:
   - UICamera
   - strokeCounter
   - AudioDisabler
+  - Level
   layers:
   - Default
   - TransparentFX

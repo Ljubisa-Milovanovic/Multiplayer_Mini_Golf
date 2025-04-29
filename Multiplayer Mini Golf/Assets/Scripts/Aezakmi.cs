@@ -13,6 +13,7 @@ using UnityEngine;
 [RequireComponent(typeof(ClientNetworkTransform))] // Assuming you still use this
 public class Aezakmi : NetworkBehaviour // Inherits from NetworkBehaviour
 {
+
     // ... (Instance, spawnPositionBase, rnd, Rigidbody cache remain the same) ...
     private Rigidbody _rigidbody;
     private Vector3 spawnPositionBase = new Vector3(-1.5f, 3, -10.5f);//15 3 25
@@ -59,7 +60,7 @@ public class Aezakmi : NetworkBehaviour // Inherits from NetworkBehaviour
 
 
     [Command("tp")]
-    private void TeleportBall(double a, double b, double c)
+    public void TeleportBall(double a, double b, double c)
     {
         if (!IsOwner || _rigidbody == null) return;
 
