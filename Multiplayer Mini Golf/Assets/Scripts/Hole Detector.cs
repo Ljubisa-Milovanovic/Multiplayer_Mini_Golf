@@ -9,6 +9,20 @@ public class HoleDetector : MonoBehaviour
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
+        /*
+        Ace - hole in one
+        Par - predetermined number of strokes (expected number) 
+        Bogey - one stroke over par
+        Double Bogey - two strokes over par
+        Birdie - one under par
+        Eagle - two strokes uner par
+        Albatross/double eagle - three strokes under par
+        
+        my imagined therminology:
+        wraith - three holes over par
+        phantom - two holes over par
+        */
+
         Debug.Log("Nesto me je pipnulo ........ PAUSE");
         // Check if the object that entered is the ball
         if (other.CompareTag("player ball"))

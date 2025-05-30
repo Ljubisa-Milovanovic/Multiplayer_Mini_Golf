@@ -21,6 +21,13 @@ public class GameMenager : MonoBehaviour
         {"lvl3" , new Vector3(-31, 15, 31)}
     };
 
+    Dictionary<string, int> ParCount = new Dictionary<string, int> // par - expected number of strokes for a hole
+    {
+        {"lvl1" , 4 },
+        {"lvl2" , 9},
+        {"lvl3" , 7}
+    };
+
     private void Awake()
     {
         if (instance == null)
