@@ -245,7 +245,7 @@ public class Udarac : NetworkBehaviour
         _rigidbody.AddForce(force);
         Debug.Log("<color=green>Froce:</color> " + force + ", force y: " + force.y); // Debug log when Stop is called
         Strokes++;
-        strokesText.text = "Strokes: " + Strokes.ToString();
+        strokesText.text = Strokes.ToString();
         isIdle = false;
         //Debug.Log("i shot him");
 

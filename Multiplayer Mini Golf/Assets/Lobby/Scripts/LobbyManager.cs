@@ -194,7 +194,8 @@ public class LobbyManager : MonoBehaviour {
     }
     public async void Proceed()
     {
-        if (IsLobbyHost()) {
+        if (IsLobbyHost())
+        {
             try
             {
                 Debug.Log("Starting the host game");
@@ -206,6 +207,9 @@ public class LobbyManager : MonoBehaviour {
                         {KEY_START_GAME, new DataObject(DataObject.VisibilityOptions.Member, relayCode) }
                     }
                 });
+
+                EditPlayerName.Instance.Hide();
+                Debug.Log("Procceding and hiding playername");
             }
             catch (LobbyServiceException ex)
             {

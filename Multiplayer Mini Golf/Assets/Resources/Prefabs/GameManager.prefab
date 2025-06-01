@@ -44,3 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4de7c0fb9e98164fa9744a89dd40f87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rows:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  lastLocation: {x: 0, y: 0, z: 0}

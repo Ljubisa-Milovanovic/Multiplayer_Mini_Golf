@@ -17,7 +17,7 @@ public class EditPlayerName : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI playerNameText;
 
 
-    private string playerName = "Stojane_jel_blorikas"; //pumpaj, cup pohlepe
+    private string playerName = "CarskiQ"; //pumpaj, cup pohlepe
 
 
     private void Awake() {
@@ -43,6 +43,10 @@ public class EditPlayerName : MonoBehaviour {
     public void DisableNameEdit()
     {
         GetComponent<Button>().onClick.RemoveAllListeners();
+    }
+    public void Hide()
+    {
+        gameObject.SetActive(false);
     }
 
     private void Start() {

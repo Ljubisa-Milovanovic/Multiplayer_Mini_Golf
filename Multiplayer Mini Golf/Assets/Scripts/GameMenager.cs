@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.IO;
 using QFSW.QC;
 using QFSW.QC.Actions;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameMenager : MonoBehaviour
 {
+    public GameObject[] rows;
     private Aezakmi _aezakmi;
     public static GameMenager instance;
     public Vector3 lastLocation;
@@ -113,4 +115,8 @@ public class GameMenager : MonoBehaviour
         }
     }
     
+    public void UpdatingScoreBoard() { 
+        string PlayerName = EditPlayerName.Instance.GetPlayerName();
+        rows[0].GetComponent<TextMeshProUGUI>().text = PlayerName;
+    }
 }
