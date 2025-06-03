@@ -21,7 +21,6 @@ public class AuthenticateUI : MonoBehaviour {
 
     public void Hide() {
         gameObject.SetActive(false);
-        Debug.Log("hiding authentication ui");
     }
 
 }

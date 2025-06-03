@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rows:
-  - {fileID: 0}
+  - {fileID: 7408447350900751505, guid: e1f406dfb99c6f54e8fa3a03ef8bb3f5, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

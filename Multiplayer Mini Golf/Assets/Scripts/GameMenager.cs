@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 
 public class GameMenager : MonoBehaviour
 {
-    public GameObject[] rows;
+    public TextMeshProUGUI[] rows;
     private Aezakmi _aezakmi;
     public static GameMenager instance;
     public Vector3 lastLocation;
@@ -117,6 +117,6 @@ public class GameMenager : MonoBehaviour
     
     public void UpdatingScoreBoard() { 
         string PlayerName = EditPlayerName.Instance.GetPlayerName();
-        rows[0].GetComponent<TextMeshProUGUI>().text = PlayerName;
+        rows[0].text = PlayerName;
     }
 }
