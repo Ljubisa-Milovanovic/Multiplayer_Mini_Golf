@@ -8,6 +8,7 @@ using Unity.Netcode;
 
 public class Udarac : NetworkBehaviour
 {
+    private string PlayerName;
     public static Udarac Instance { get; private set; }
     private Camera _camera;
     //NetworkVariable<int> Stroke = new NetworkVariable<int>(0);
@@ -42,6 +43,7 @@ public class Udarac : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        
       
         _timer = FindObjectOfType<Timer>();
 
@@ -75,8 +77,6 @@ public class Udarac : NetworkBehaviour
             Debug.LogError("No camera found under Player GameObject!");
         }
 
-
-
         ballMaterial.bounciness = 1f; // Default to no bounce
         ballMaterial.bounceCombine = PhysicMaterialCombine.Minimum;//average
 
@@ -101,7 +101,7 @@ public class Udarac : NetworkBehaviour
             Fcamera.GetComponent<AudioListener>().enabled = false;
     }
 
-
+   
 
     private void LateUpdate()
     {
@@ -272,7 +272,7 @@ public class Udarac : NetworkBehaviour
         targetWorldPoint};
         lineRenderer.SetPositions(positions);
         lineRenderer.enabled = true;
-        Debug.Log("<color=green>Draw line</color> transform " + transform.position + ", target: " + targetWorldPoint); // Debug log when Stop is called
+        //Debug.Log("<color=green>Draw line</color> transform " + transform.position + ", target: " + targetWorldPoint); // Debug log when Stop is called
     }
 
 
@@ -317,7 +317,7 @@ public class Udarac : NetworkBehaviour
         
         if (Physics.Raycast(worldMousePosNear, worldMousePosFar - worldMousePosNear, out hit, float.PositiveInfinity))
         {
-            Debug.Log("<color=red>hit is: </color>" + hit.point.ToString());
+            //Debug.Log("<color=red>hit is: </color>" + hit.point.ToString());
             return hit.point;
         }
         else

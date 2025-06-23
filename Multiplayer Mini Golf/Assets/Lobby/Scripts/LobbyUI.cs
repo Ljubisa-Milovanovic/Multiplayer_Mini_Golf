@@ -53,6 +53,7 @@ public class LobbyUI : MonoBehaviour {
         });
         proceedButton.onClick.AddListener(() => {
             LobbyManager.Instance.Proceed();
+            //ScoreBoardManager.Instance.AddPlayer();
         });
     }
 

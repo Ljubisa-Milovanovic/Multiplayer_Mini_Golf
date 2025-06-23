@@ -11319,6 +11319,8 @@ GameObject:
   - component: {fileID: 2668576706499227652}
   - component: {fileID: 7548664191386421755}
   - component: {fileID: 623677226632637090}
+  - component: {fileID: 2509958044078829996}
+  - component: {fileID: 7688033402567623262}
   m_Layer: 5
   m_Name: playerCanvas
   m_TagString: Untagged
@@ -11427,6 +11429,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 5764971374088867051}
   remainingTime: 180
+--- !u!114 &2509958044078829996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3027488849936335056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2104003171
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &7688033402567623262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3027488849936335056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b78e22bffbc59ac4d92a4721f95a1dcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rows: []
 --- !u!1 &3046166716882931925
 GameObject:
   m_ObjectHideFlags: 0
