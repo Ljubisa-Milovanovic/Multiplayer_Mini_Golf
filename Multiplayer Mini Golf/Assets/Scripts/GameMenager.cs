@@ -114,5 +114,10 @@ public class GameMenager : MonoBehaviour
             Debug.LogWarning("UnloadLevel: No GameObject with tag 'Level' found to destroy.");
         }
     }
+
+    public void HoleSound()
+    {
+        this.GetComponent<AudioSource>().Play();
+    }
     
 }

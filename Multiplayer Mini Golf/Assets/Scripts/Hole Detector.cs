@@ -37,7 +37,8 @@ public class HoleDetector : MonoBehaviour
                 else
                     Debug.Log("Ball has entered the hole! Number of strokes is: " + udarac.Strokes);
 
-              
+
+                GameMenager.instance.HoleSound();
                 // go to next level
                 GameMenager.instance.NextLevel();
             }

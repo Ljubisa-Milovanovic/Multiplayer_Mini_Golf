@@ -249,6 +249,8 @@ public class Udarac : NetworkBehaviour
         isIdle = false;
         //Debug.Log("i shot him");
 
+        this.GetComponent<AudioSource>().Play();
+
     }
 
     private void DrawLine(Vector3 worldPoint)
