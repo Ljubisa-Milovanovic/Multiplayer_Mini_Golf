@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static Cinemachine.DocumentationSortingAttribute;
 
 public class HoleDetector : MonoBehaviour
 {
+    
+
+    private void Awake()
+    {
+        GameMenager.instance.UpdateNavBar();
+    }
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
@@ -37,10 +44,11 @@ public class HoleDetector : MonoBehaviour
                 else
                     Debug.Log("Ball has entered the hole! Number of strokes is: " + udarac.Strokes);
 
-
                 GameMenager.instance.HoleSound();
                 // go to next level
                 GameMenager.instance.NextLevel();
+               
+                
             }
             else
             {

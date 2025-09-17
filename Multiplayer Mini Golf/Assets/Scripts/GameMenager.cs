@@ -16,6 +16,12 @@ public class GameMenager : MonoBehaviour
     public Vector3 lastLocation;
     int i = 2;
 
+    [SerializeField] private TextMeshProUGUI HolesTxt;
+    [SerializeField] private TextMeshProUGUI ParTxt;
+
+    private int holeNum = 1;
+    private int[] parNum = new int[4] { 5, 6, 7, 5 };
+
     Dictionary<string, Vector3> SpawnPoints = new Dictionary<string, Vector3>()
     {
         {"lvl1" , new Vector3(-1.5f, 1, -10.5f) },
@@ -120,4 +126,11 @@ public class GameMenager : MonoBehaviour
         this.GetComponent<AudioSource>().Play();
     }
     
+    public void UpdateNavBar()
+    {
+        Debug.Log("updatujem: " + holeNum.ToString());
+        HolesTxt.text = holeNum.ToString();
+        ParTxt.text = parNum[holeNum - 1].ToString();
+        holeNum++;
+    }
 }

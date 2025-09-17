@@ -59,8 +59,6 @@ public class LobbyManager : MonoBehaviour {
     private Lobby joinedLobby;
     private string playerName;
 
-    [SerializeField] private GameObject canvas;
-    [SerializeField] private GameObject MusicPLayer;
 
     private void Awake() {
         Instance = this;
@@ -209,11 +207,6 @@ public class LobbyManager : MonoBehaviour {
                         {KEY_START_GAME, new DataObject(DataObject.VisibilityOptions.Member, relayCode) }
                     }
                 });
-
-                EditPlayerName.Instance.Hide();
-                canvas.GetComponent<AudioSource>().Stop();
-                MusicPLayer.SetActive(true);
-                Debug.Log("Procceding and hiding playername");
             }
             catch (LobbyServiceException ex)
             {

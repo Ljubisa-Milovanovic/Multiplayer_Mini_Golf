@@ -25,7 +25,8 @@ public class LobbyUI : MonoBehaviour {
     [SerializeField] private Button changeGameModeButton;
     [SerializeField] private Button proceedButton;
 
-
+    [SerializeField] private GameObject canvas;
+    [SerializeField] private GameObject MusicPLayer;
     private void Awake() {
         Instance = this;
 
@@ -71,6 +72,11 @@ public class LobbyUI : MonoBehaviour {
     private void LobbyManager_OnLeftLobby(object sender, System.EventArgs e) {
         ClearLobby();
         Hide();
+        Debug.Log("poceo je game");
+        EditPlayerName.Instance.Hide();
+        canvas.GetComponent<AudioSource>().Stop();
+        MusicPLayer.SetActive(true);
+        Debug.Log("Procceding and hiding playername");
     }
 
     private void UpdateLobby_Event(object sender, LobbyManager.LobbyEventArgs e) {
