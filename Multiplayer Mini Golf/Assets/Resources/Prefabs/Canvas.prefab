@@ -1935,6 +1935,8 @@ MonoBehaviour:
   leaveLobbyButton: {fileID: 3006564624931594431}
   changeGameModeButton: {fileID: 3629630581886467801}
   proceedButton: {fileID: 2428229219220118916}
+  canvas: {fileID: 6759273576883189183}
+  MusicPLayer: {fileID: 0}
 --- !u!1 &1581430914826095254
 GameObject:
   m_ObjectHideFlags: 0
