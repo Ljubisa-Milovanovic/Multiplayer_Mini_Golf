@@ -20,7 +20,7 @@ public class GameMenager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI ParTxt;
 
     private int holeNum = 1;
-    private int[] parNum = new int[4] { 5, 6, 7, 5 };
+    private int[] parNum = new int[4] { 5, 11, 18, 23 };
 
     Dictionary<string, Vector3> SpawnPoints = new Dictionary<string, Vector3>()
     {

@@ -105,10 +105,11 @@ public class Udarac : NetworkBehaviour
 
     private void LateUpdate()
     {
-        Vector3 velocity = _rigidbody.velocity;
+        /*Vector3 velocity = _rigidbody.velocity;
         if(velocity.y>0)
             velocity.y = 0; // Eliminate vertical velocity
-        _rigidbody.velocity = velocity;
+        _rigidbody.velocity = velocity;*/
+
 
         //if (IsOwner)
         //{
