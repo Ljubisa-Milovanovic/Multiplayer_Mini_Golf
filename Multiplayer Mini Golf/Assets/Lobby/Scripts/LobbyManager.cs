@@ -136,7 +136,7 @@ public class LobbyManager : MonoBehaviour {
                     if (!IsLobbyHost())
                     {
                         Relay.Instance.JoinRelay(joinedLobby.Data[KEY_START_GAME].Value);
-
+                        Debug.Log("joinujem ga");
                         joinedLobby = null;
                     }
 

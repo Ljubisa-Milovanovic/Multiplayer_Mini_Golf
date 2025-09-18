@@ -56,6 +56,10 @@ public class LobbyUI : MonoBehaviour {
             LobbyManager.Instance.Proceed();
             //ScoreBoardManager.Instance.AddPlayer();
         });
+        if(MusicPLayer == null)
+        {
+            MusicPLayer = GameObject.FindGameObjectWithTag("Music");
+        }
     }
 
     private void Start() {
