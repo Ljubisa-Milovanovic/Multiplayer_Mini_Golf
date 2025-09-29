@@ -13,66 +13,97 @@ public class ScoreBoardManager : NetworkBehaviour
 
     public static ScoreBoardManager Instance { get; private set; }
 
-    private NetworkList<PlayerStats> networkPlayerList;
+    public NetworkList<PlayerStats> networkPlayerList;
 
     private void Awake()
-    {
+    {      
         if (Instance == null)
         {
             Instance = this;
-            networkPlayerList = new NetworkList<PlayerStats>();
         }
         else
-        { 
-            Destroy(gameObject);  
+        {
+            Destroy(gameObject);
         }
-        
-        //networkPlayerList.OnListChanged += OnPlayerListChanged;
+        Debug.Log("im awake");
+        networkPlayerList = new NetworkList<PlayerStats>();
     }
-    //private void OnPlayerListChanged(NetworkListEvent<PlayerStats> changeEvent)
-    //{
-    //    List<PlayerStats> playerList = new List<PlayerStats>();
 
-    //    foreach (var player in networkPlayerList)
-    //        playerList.Add(player);
-    //    ScoreboardUI.Instance.UpdateScoreboard(playerList);
-    //}
+    private void OnPlayerListChanged(NetworkListEvent<PlayerStats> changeEvent)
+    {
+        // This will be called on all clients when the NetworkList changes on the server.
+        // You can use this to update your UI.
+        Debug.Log($"<color=green>NetworkList changed! Type: {changeEvent.Type}</color>");
+        List<PlayerStats> playerList = new List<PlayerStats>();
+        foreach (var player in networkPlayerList)
+        {
+            playerList.Add(player);
+        }
+        // Assuming you have a ScoreboardUI script that handles the display
+        // ScoreboardUI.Instance.UpdateScoreboard(playerList);
+        //IspisiListuIgraca(); // For debugging
+    }
 
     public override void OnNetworkSpawn()
     {
+        Debug.Log("spawnovo sam se");
+
+        networkPlayerList.OnListChanged += OnPlayerListChanged;
+
         if (IsServer)
         {
+            
             NetworkManager.Singleton.OnClientConnectedCallback += HandlePlayerConnected;
+            NetworkManager.Singleton.OnClientDisconnectCallback += HandlePlayerDisconnected;
         }
     }
-    //public override void OnNetworkDespawn()
-    //{
-    //    if (IsServer)
-    //    {
-    //        NetworkManager.Singleton.OnClientConnectedCallback -= HandlePlayerConnected;
-    //    }
-    //}
+
+    
+
+
+    public override void OnNetworkDespawn()
+    {
+        if (IsServer)
+        {
+            NetworkManager.Singleton.OnClientConnectedCallback -= HandlePlayerConnected;
+            NetworkManager.Singleton.OnClientDisconnectCallback -= HandlePlayerDisconnected;
+        }
+    }
 
     private void HandlePlayerConnected(ulong playerId)
     {
-        Debug.Log($"<color=purple>Pozvan sam</color>");
-        string playerNameString = EditPlayerName.Instance.GetPlayerName();
-
-        Debug.Log($"<color=purple>Server: Player connected with ID: {playerId}</color>");
-
-        networkPlayerList.Add(new PlayerStats
-        {
-            playerId = playerId,
-            playerName = new FixedString32Bytes(playerNameString),
-            CurrScore = 0,
-            TotalScore = 0
-        });
-
         Debug.Log($"<color=purple>Added new player to list. New count: {networkPlayerList.Count}</color>");
-        foreach (var player in networkPlayerList)
+        //IspisiListuIgraca();
+    }
+
+    private void HandlePlayerDisconnected(ulong playerId)
+    {
+        Debug.Log($"<color=red>Player disconnected: {playerId}</color>");
+        for (int i = 0; i < networkPlayerList.Count; i++)
         {
-            Debug.Log($"<color=purple>Player:{player.playerId}  Name: {player.playerName} Tscore: {player.TotalScore}</color>");
+            if (networkPlayerList[i].playerId == playerId)
+            {
+                networkPlayerList[i] = new PlayerStats
+                {
+                    playerId = ulong.MaxValue,
+                    playerName = new FixedString32Bytes(""),
+                    CurrScore = 0,
+                    TotalScore = 0
+                };
+
+                Debug.Log($"<color=red>Cleared slot {i} after player left</color>");
+                break;
+            }
         }
     }
+
+
+    // ServerRpc to update a player's score
+    
+
+
+   
+
+    
 
 }

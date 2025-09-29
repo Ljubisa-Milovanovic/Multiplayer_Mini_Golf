@@ -9,6 +9,7 @@ using Unity.Netcode;
 public class Udarac : NetworkBehaviour
 {
     private string PlayerName;
+    bool SendNameFlag = true;
     public static Udarac Instance { get; private set; }
     private Camera _camera;
     //NetworkVariable<int> Stroke = new NetworkVariable<int>(0);
@@ -43,8 +44,6 @@ public class Udarac : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        
-      
         _timer = FindObjectOfType<Timer>();
 
         if (_timer != null)
@@ -88,7 +87,6 @@ public class Udarac : NetworkBehaviour
             _camera.enabled = false;
         }
 
-
         //set stroke text to strokeCounter tag
 
         strokesText = GameObject.FindWithTag("strokeCounter").GetComponent<TextMeshProUGUI>();
@@ -96,12 +94,14 @@ public class Udarac : NetworkBehaviour
         //_rigidbody.position = Vector3.zero;
         //Aezakmi.Instance.SpawnPoint();
 
-        Camera Fcamera = GameObject.FindWithTag("AudioDisabler")?.GetComponent<Camera>();
-        if(Fcamera != null )
+        /*Camera Fcamera = GameObject.FindWithTag("AudioDisabler")?.GetComponent<Camera>();
+        if (Fcamera != null)
             Fcamera.GetComponent<AudioListener>().enabled = false;
+        else
+            Debug.Log("<color=blue>Nisam diableovao kameru</color>");*/
     }
 
-   
+
 
     private void LateUpdate()
     {
@@ -117,6 +117,19 @@ public class Udarac : NetworkBehaviour
         //    transform.position = spawnPosition;
         //    Debug.Log("<color=green>Ball position after setting:" +  transform.position + ", spawn position : " +spawnPosition);
         //}
+        
+        if (SendNameFlag)
+        {
+            if (IsOwner)
+            {
+                string myName = EditPlayerName.Instance.GetPlayerName();
+                //SendNameToServerRpc(myName);
+
+                NameManager.instance.AddPlayerToListServerRpc(OwnerClientId,myName);
+                Debug.Log("poslo sam info : " + myName + OwnerClientId);
+            }
+            SendNameFlag = false;
+        }
     }
     private void FixedUpdate()
     {
@@ -252,6 +265,8 @@ public class Udarac : NetworkBehaviour
 
         this.GetComponent<AudioSource>().Play();
 
+
+        NameManager.instance.UpdatePlayerTotalScoreServerRpc(OwnerClientId, 1);
     }
 
     private void DrawLine(Vector3 worldPoint)
@@ -328,5 +343,14 @@ public class Udarac : NetworkBehaviour
             return null;
         }
     }
-    
+
+    //[ServerRpc]
+    //private void SendNameToServerRpc(string playerName, ServerRpcParams rpcParams = default)
+    //{
+    //    ulong playerId = OwnerClientId;
+
+    //    // Add player to the ScoreboardManager list
+    //    ScoreBoardManager.Instance.AddPlayerToList(playerId, playerName);
+    //}
+
 }

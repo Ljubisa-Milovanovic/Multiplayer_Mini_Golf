@@ -23,4 +23,8 @@ public struct PlayerStats : INetworkSerializable, IEquatable<PlayerStats>
     {
         return playerId == other.playerId;//&& PlayerName == other.PlayerName
     }
+    public override int GetHashCode()
+    {
+        return playerId.GetHashCode();
+    }
 }
