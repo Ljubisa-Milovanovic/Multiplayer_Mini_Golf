@@ -41,7 +41,7 @@ public class NameManager : NetworkBehaviour
                 networkPlayerList.Add(new PlayerStats
                 {
                     playerId = ulong.MaxValue,
-                    playerName = new FixedString32Bytes(""),
+                    playerName = new FixedString32Bytes("NN"),
                     CurrScore = 0,
                     TotalScore = 0
                 });
@@ -77,7 +77,8 @@ public class NameManager : NetworkBehaviour
                     CurrScore = 0,
                     TotalScore = 0
                 };
-
+                ScoreBoardManager.Instance.FillInNamesBoard();
+                ScoreBoardManager.Instance.FillInNameTab();
                 IspisiListuSvihIgraca();
                 return;
             }
@@ -123,6 +124,8 @@ public class NameManager : NetworkBehaviour
                 // the NetworkList's change detection.
                 networkPlayerList[i] = playerStats;
                 Debug.Log($"<color=orange>Server: Updated score for Player ID: {playerIdToUpdate}. New TotalScore: {playerStats.TotalScore}</color>");
+                ScoreBoardManager.Instance.FillInTotalScoresBoard();
+                ScoreBoardManager.Instance.FillInTotalScoreTab();
                 return;
             }
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mono.CSharp;
 using QFSW.QC;
 using TMPro;
 using Unity.Collections;
@@ -9,11 +10,11 @@ using UnityEngine;
 
 public class ScoreBoardManager : NetworkBehaviour
 {
-    public TextMeshProUGUI[] rows;
-
+    public TextMeshProUGUI[] namesBoard;
+    public TextMeshProUGUI[] namesTab;
+    public TextMeshProUGUI[] TotalScoresBoard;
+    public TextMeshProUGUI[] TotalScoresTab;
     public static ScoreBoardManager Instance { get; private set; }
-
-    public NetworkList<PlayerStats> networkPlayerList;
 
     private void Awake()
     {      
@@ -25,85 +26,80 @@ public class ScoreBoardManager : NetworkBehaviour
         {
             Destroy(gameObject);
         }
-        Debug.Log("im awake");
-        networkPlayerList = new NetworkList<PlayerStats>();
     }
 
-    private void OnPlayerListChanged(NetworkListEvent<PlayerStats> changeEvent)
+    [Command("FillInNamesBoard")]
+    public void FillInNamesBoard()
     {
-        // This will be called on all clients when the NetworkList changes on the server.
-        // You can use this to update your UI.
-        Debug.Log($"<color=green>NetworkList changed! Type: {changeEvent.Type}</color>");
-        List<PlayerStats> playerList = new List<PlayerStats>();
-        foreach (var player in networkPlayerList)
+        for (int i = 0; i < 8; i++)
         {
-            playerList.Add(player);
-        }
-        // Assuming you have a ScoreboardUI script that handles the display
-        // ScoreboardUI.Instance.UpdateScoreboard(playerList);
-        //IspisiListuIgraca(); // For debugging
-    }
-
-    public override void OnNetworkSpawn()
-    {
-        Debug.Log("spawnovo sam se");
-
-        networkPlayerList.OnListChanged += OnPlayerListChanged;
-
-        if (IsServer)
-        {
-            
-            NetworkManager.Singleton.OnClientConnectedCallback += HandlePlayerConnected;
-            NetworkManager.Singleton.OnClientDisconnectCallback += HandlePlayerDisconnected;
-        }
-    }
-
-    
-
-
-    public override void OnNetworkDespawn()
-    {
-        if (IsServer)
-        {
-            NetworkManager.Singleton.OnClientConnectedCallback -= HandlePlayerConnected;
-            NetworkManager.Singleton.OnClientDisconnectCallback -= HandlePlayerDisconnected;
-        }
-    }
-
-    private void HandlePlayerConnected(ulong playerId)
-    {
-        Debug.Log($"<color=purple>Added new player to list. New count: {networkPlayerList.Count}</color>");
-        //IspisiListuIgraca();
-    }
-
-    private void HandlePlayerDisconnected(ulong playerId)
-    {
-        Debug.Log($"<color=red>Player disconnected: {playerId}</color>");
-        for (int i = 0; i < networkPlayerList.Count; i++)
-        {
-            if (networkPlayerList[i].playerId == playerId)
+            if (i < NameManager.instance.networkPlayerList.Count)
             {
-                networkPlayerList[i] = new PlayerStats
-                {
-                    playerId = ulong.MaxValue,
-                    playerName = new FixedString32Bytes(""),
-                    CurrScore = 0,
-                    TotalScore = 0
-                };
+                namesBoard[i].text = NameManager.instance.networkPlayerList[i].playerName.ToString();
+            }
+            else
+            {
+                namesBoard[i].text = "";
+            }
+        }
+    }
 
-                Debug.Log($"<color=red>Cleared slot {i} after player left</color>");
-                break;
+    [Command("FillInNameTab")]
+    public void FillInNameTab()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            if (i < NameManager.instance.networkPlayerList.Count)
+            {
+                namesTab[i].text = NameManager.instance.networkPlayerList[i].playerName.ToString();
+            }
+            else
+            {
+                namesTab[i].text = "";
+            }
+        }
+    }
+
+    [Command("FillInTotalScoresBoard")]
+    public void FillInTotalScoresBoard()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            if (i < NameManager.instance.networkPlayerList.Count)
+            {
+                TotalScoresBoard[i].text = NameManager.instance.networkPlayerList[i].TotalScore.ToString();
+            }
+            else
+            {
+                TotalScoresBoard[i].text = "";
+            }
+        }
+    }
+
+    [Command("FillInTotalScoreTab")]
+    public void FillInTotalScoreTab()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            if (i < NameManager.instance.networkPlayerList.Count)
+            {
+                TotalScoresTab[i].text = NameManager.instance.networkPlayerList[i].TotalScore.ToString();
+            }
+            else
+            {
+                TotalScoresTab[i].text = "";
             }
         }
     }
 
 
-    // ServerRpc to update a player's score
-    
 
 
-   
 
-    
+
+
+
+
+
 
 }
