@@ -26,11 +26,19 @@ public class Timer : MonoBehaviour
             else if (remainingTime < 0)
             {
                 remainingTime = 0;
+                KrajIgre();
             }
             int minutes = Mathf.FloorToInt(remainingTime / 60);
             int seconds = Mathf.FloorToInt(remainingTime % 60);
             timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         }
        // Debug.Log("<color=orange>Timer info:</color> flag: "+startFlag+" remainign time: " + remainingTime);
+    }
+
+    private void KrajIgre()
+    {
+        GameOverManager.Instance.Show();
+        string ime = NameManager.instance.getNajveciScore();
+        GameOverManager.Instance.SetPobednikText(ime);
     }
 }

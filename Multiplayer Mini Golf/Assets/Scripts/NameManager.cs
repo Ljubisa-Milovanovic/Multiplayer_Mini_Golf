@@ -245,4 +245,25 @@ public class NameManager : NetworkBehaviour
         }
     }
 
+    public string getNajveciScore()
+    {
+        int max = 0;
+        ulong maxId = ulong.MaxValue;
+        for (int i = 0; i < networkPlayerList.Count; i++)
+        {
+            if (networkPlayerList[i].TotalScore > max)
+            {
+                maxId = networkPlayerList[i].playerId;
+            }
+        }
+        for (int i = 0; i < networkPlayerList.Count; i++)
+        {
+            if (networkPlayerList[i].playerId == maxId)
+            {
+                return networkPlayerList[i].playerName.ToString();
+            }
+        }
+        return networkPlayerList[0].playerName.ToString();
+    }
+
 }
