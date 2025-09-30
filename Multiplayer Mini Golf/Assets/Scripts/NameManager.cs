@@ -28,7 +28,7 @@ public class NameManager : NetworkBehaviour
         if (IsServer)
         {
             InitializePlayerList();
-            //AddPlayerToList(0, "ljuba");
+            
         }
         networkPlayerList.OnListChanged += OnPlayerListChanged;
     }
@@ -37,7 +37,7 @@ public class NameManager : NetworkBehaviour
     {
         Debug.Log($"Player list changed: {changeEvent.Type}");
 
-        // Refresh the UI (both server & clients will run this)
+        
         if (ScoreBoardManager.Instance != null)
         {
             ScoreBoardManager.Instance.FillInNamesBoard();
@@ -90,7 +90,7 @@ public class NameManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void AddPlayerToListServerRpc(ulong playerId, string playerName)
     {
-        AddPlayerToList(playerId, playerName); // call the shared helper
+        AddPlayerToList(playerId, playerName); 
     }
 
     [Command("AddPlayersToList")]
@@ -113,9 +113,7 @@ public class NameManager : NetworkBehaviour
                     TotalScore = 0,
                     HoleNumber = 1
                 };
-                //ScoreBoardManager.Instance.FillInNamesBoard();
-                //ScoreBoardManager.Instance.FillInNameTab();
-                //ScoreBoardManager.Instance.FillInHole();
+                
                 IspisiListuSvihIgraca();
                 return;
             }
@@ -150,12 +148,10 @@ public class NameManager : NetworkBehaviour
     }
 
 
-    [ServerRpc(RequireOwnership = false)] // RequireOwnership=false allows any client to request an update for any player,
-                                          // but you might want to adjust this based on your game's logic.
-                                          // If only the player themselves can update their score, keep it true.
+    [ServerRpc(RequireOwnership = false)] 
     public void UpdatePlayerTotalScoreServerRpc(ulong playerIdToUpdate, int scoreIncrease)
     {
-        //if (!IsServer) return; // Only the server can modify the NetworkList
+        
 
         Debug.Log($"<color=orange>ServerRpc: Attempting to update score for Player ID: {playerIdToUpdate} by {scoreIncrease}</color>");
 
@@ -168,8 +164,7 @@ public class NameManager : NetworkBehaviour
                 playerStats.CurrScore += scoreIncrease;
                 networkPlayerList[i] = playerStats;
                 Debug.Log($"<color=orange>Server: Updated score for Player ID: {playerIdToUpdate}. New TotalScore: {playerStats.TotalScore}</color>");
-                //ScoreBoardManager.Instance.FillInTotalScoresBoard();
-                //ScoreBoardManager.Instance.FillInTotalScoreTab();
+               
                 return;
             }
         }
@@ -196,26 +191,7 @@ public class NameManager : NetworkBehaviour
                 Debug.Log($"<color=orange>Server: Updated hole for Player ID: {playerId}. New HoleNumber: {playerStats.HoleNumber}</color>");
             }
         }
-       // ScoreBoardManager.Instance.FillInHole();
-
-        /*switch (GameMenager.instance.BrojNivoa-2)
-        {
-            case 1:
-                ScoreBoardManager.Instance.FillColumnOne();
-                break;
-            case 2:
-                ScoreBoardManager.Instance.FillColumnTwo();
-                break;
-            case 3:
-                ScoreBoardManager.Instance.FillColumnThree();
-                break;
-            case 4:
-                ScoreBoardManager.Instance.FillColumnFour();
-                break;
-            default:
-                break;
-
-        }*/
+       
         ResetCurrScore();
 
         if (ScoreBoardManager.Instance != null)

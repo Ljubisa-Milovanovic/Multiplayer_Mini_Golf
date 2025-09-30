@@ -10,12 +10,12 @@ public class CameraStacker : NetworkBehaviour
         var cameraData = GetComponent<UniversalAdditionalCameraData>();
         if (cameraData != null)
         {
-            // Find the UI Camera in the scene by tag
+            
             Camera uiCamera = GameObject.FindWithTag("UICamera")?.GetComponent<Camera>();
 
             if (uiCamera != null)
             {
-                // Add the UI Camera to the stack if not already added
+                
                 if (!cameraData.cameraStack.Contains(uiCamera))
                 {
                     cameraData.cameraStack.Add(uiCamera);

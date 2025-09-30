@@ -9,12 +9,12 @@ public class Bounds : NetworkBehaviour
     {
         if (other.CompareTag("player ball"))
         {
-            // Reset the ball's position to the last valid location
+            
             if (GameMenager.instance != null)
             {
                 other.transform.position = GameMenager.instance.lastLocation;
 
-                // Optional: Reset the ball's velocity to prevent it from flying off again
+                
                 Rigidbody rb = other.GetComponent<Rigidbody>();
                 if (rb != null)
                 {

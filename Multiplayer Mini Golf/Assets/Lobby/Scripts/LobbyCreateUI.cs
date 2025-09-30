@@ -42,7 +42,7 @@ public class LobbyCreateUI : MonoBehaviour {
         lobbyNameButton.onClick.AddListener(() => {
             UI_InputWindow.Show_Static("Lobby Name", lobbyName, "abcdefghijklmnopqrstuvxywzABCDEFGHIJKLMNOPQRSTUVXYWZ,-", 20,
             () => {
-                // Cancel
+                
             },
             (string lobbyName) => {
                 this.lobbyName = lobbyName;
@@ -58,7 +58,7 @@ public class LobbyCreateUI : MonoBehaviour {
         maxPlayersButton.onClick.AddListener(() => {
             UI_InputWindow.Show_Static("Max Players(1-8)", maxPlayers,
             () => {
-                // Cancel
+                
             },
             (int maxPlayers) => {
                 this.maxPlayers = maxPlayers;

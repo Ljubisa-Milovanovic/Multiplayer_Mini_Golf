@@ -54,7 +54,7 @@ public class LobbyUI : MonoBehaviour {
         });
         proceedButton.onClick.AddListener(() => {
             LobbyManager.Instance.Proceed();
-            //ScoreBoardManager.Instance.AddPlayer();
+            
         });
         if(MusicPLayer == null)
         {
@@ -68,7 +68,7 @@ public class LobbyUI : MonoBehaviour {
         LobbyManager.Instance.OnLobbyGameModeChanged += UpdateLobby_Event;
         LobbyManager.Instance.OnLeftLobby += LobbyManager_OnLeftLobby;
         LobbyManager.Instance.OnKickedFromLobby += LobbyManager_OnLeftLobby;
-        LobbyManager.Instance.OnGameStarted += LobbyManager_OnLeftLobby;// treba da se hideuje lobyy ceo
+        LobbyManager.Instance.OnGameStarted += LobbyManager_OnLeftLobby;
 
         Hide();
     }
@@ -76,11 +76,11 @@ public class LobbyUI : MonoBehaviour {
     private void LobbyManager_OnLeftLobby(object sender, System.EventArgs e) {
         ClearLobby();
         Hide();
-        //Debug.Log("poceo je game");
+        
         EditPlayerName.Instance.Hide();
         canvas.GetComponent<AudioSource>().Stop();
         MusicPLayer.SetActive(true);
-        //Debug.Log("Procceding and hiding playername");
+        
     }
 
     private void UpdateLobby_Event(object sender, LobbyManager.LobbyEventArgs e) {
@@ -101,7 +101,7 @@ public class LobbyUI : MonoBehaviour {
 
             lobbyPlayerSingleUI.SetKickPlayerButtonVisible(
                 LobbyManager.Instance.IsLobbyHost() &&
-                player.Id != AuthenticationService.Instance.PlayerId // Don't allow kick self
+                player.Id != AuthenticationService.Instance.PlayerId 
             );
 
             
