@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using QFSW.QC;
 using TMPro;
 using UnityEngine;
 
@@ -20,21 +21,21 @@ public class GameOverManager : MonoBehaviour
         }
         if (targetCanvas == null)
         {
-            // find any Canvas in children (even inactive)
             targetCanvas = GetComponentInChildren<Canvas>(true);
+            Debug.Log($"Found canvas: {(targetCanvas != null ? targetCanvas.gameObject.name : "NULL")}");
         }
-        if (targetCanvas == null)
-            Debug.LogWarning("CanvasToggle: No Canvas found in children.");
     }
 
+    [Command("ShowCanvas")]
     public void Show()
     {
-        if (targetCanvas != null) targetCanvas.enabled = true;
+        if (targetCanvas != null) targetCanvas.gameObject.SetActive(true);
     }
 
+    [Command("HideCanvas")]
     public void Hide()
     {
-        if (targetCanvas != null) targetCanvas.enabled = false;
+        if (targetCanvas != null) targetCanvas.gameObject.SetActive(false);
     }
 
     public void SetPobednikText(string text)

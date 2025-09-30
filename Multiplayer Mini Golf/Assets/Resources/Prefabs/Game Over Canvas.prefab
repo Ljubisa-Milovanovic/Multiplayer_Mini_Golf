@@ -511,6 +511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Pobednik: {fileID: 5675480466558931670}
+  targetCanvas: {fileID: 4919181903262672936}
 --- !u!1 &8858604623274228560
 GameObject:
   m_ObjectHideFlags: 0
