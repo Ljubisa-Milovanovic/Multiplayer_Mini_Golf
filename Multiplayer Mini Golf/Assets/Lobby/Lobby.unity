@@ -2311,6 +2311,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e198f365603c7674295de4c57fd88e8f, type: 3}
+--- !u!1 &2122238489 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4606064683311173438, guid: 735ba690beab99042ad305617d8c44a0,
+    type: 3}
+  m_PrefabInstance: {fileID: 552580357309646344}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &552580357309646344
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2581,7 +2587,7 @@ PrefabInstance:
         type: 3}
       propertyPath: MusicPLayer
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2122238489}
     - target: {fileID: 4160583549539420626, guid: 2491c1193ceb66f4694415043901991d,
         type: 3}
       propertyPath: m_AnchorMax.y

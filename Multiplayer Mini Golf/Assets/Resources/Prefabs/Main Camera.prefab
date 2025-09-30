@@ -144,7 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   smoothTime: 0.25
-  rotationSpeed: 5
+  rotationSpeed: 10
   verticalRotationLimit: 30
   zoomSpeed: 1.5
   minZoomDistance: 0.5
