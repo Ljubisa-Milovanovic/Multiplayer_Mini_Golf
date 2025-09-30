@@ -30,7 +30,7 @@ public class GameMenager : MonoBehaviour
         {"lvl3" , new Vector3(-31, 15, 31)}
     };
 
-    Dictionary<string, int> ParCount = new Dictionary<string, int> // par - expected number of strokes for a hole
+    Dictionary<string, int> ParCount = new Dictionary<string, int> 
     {
         {"lvl1" , 4 },
         {"lvl2" , 9},
@@ -60,7 +60,7 @@ public class GameMenager : MonoBehaviour
             Debug.LogError("Aezakmi nije nadjen");
         }
         
-        string levelToLoadName = "lvl" + BrojNivoa.ToString(); // e.g., "lvl2" if i is 2
+        string levelToLoadName = "lvl" + BrojNivoa.ToString(); 
         UnloadLevel();
         GameObject levelPrefab = LoadLevel(levelToLoadName);
         if (levelPrefab == null)
@@ -75,7 +75,7 @@ public class GameMenager : MonoBehaviour
             Debug.LogError($"Failed to instantiate {levelToLoadName}.");
             return;
         }
-        // Ensure CurrentLvl has the "Level" tag if UnloadLevel relies on it
+        
         CurrentLvl.tag = "Level";
 
         if (SpawnPoints.TryGetValue(levelToLoadName, out Vector3 spawnPosition))
@@ -85,13 +85,13 @@ public class GameMenager : MonoBehaviour
         else
         {
             Debug.LogError($"Spawn point not found for {levelToLoadName}! Using default or last known.");
-            // Optionally, provide a default spawn or handle this error
-            _aezakmi.TeleportBall(0, 5, 0); // Example default
+            
+            _aezakmi.TeleportBall(0, 5, 0); 
         }
         BrojNivoa++;
-        if (BrojNivoa > SpawnPoints.Count) // Assuming SpawnPoints has "lvl1", "lvl2", etc.
+        if (BrojNivoa > SpawnPoints.Count) 
         {
-            BrojNivoa = 1; // Or the starting level index
+            BrojNivoa = 1; 
         }
     }
 
@@ -100,7 +100,7 @@ public class GameMenager : MonoBehaviour
         string resourcePath = "Prefabs/courses/" + name;
         GameObject levelPrefab = Resources.Load<GameObject>(resourcePath);
         if (levelPrefab == null) {
-            // More informative error message for Resources.Load
+            
             Debug.LogError("Failed to load level prefab from Resources. Path: " + resourcePath +
                            ". Make sure the prefab exists at 'Assets/Resources/" + resourcePath +
                            ".prefab' and is of type GameObject.");
@@ -114,7 +114,7 @@ public class GameMenager : MonoBehaviour
         GameObject lvl = GameObject.FindWithTag("Level");
         if (lvl != null)
         {
-            Destroy(lvl);//DestroyImmediate
+            Destroy(lvl);
         }
         else
         {

@@ -17,36 +17,31 @@ public class Relay : MonoBehaviour
     private async void Start()
     {
         await UnityServices.InitializeAsync();
-        // Singleton pattern: Ensure only one instance exists.
+        
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject);  // Destroy this instance if another already exists.
+            Destroy(gameObject);  
             return;
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject); // Keep the Relay object alive between scenes.  Essential!
-        //AuthenticationService.Instance.SignedIn += () =>
-        //{
-        //    Debug.Log("Singed in " + AuthenticationService.Instance.PlayerName + " : " + AuthenticationService.Instance.PlayerId);
-        //};
-        //await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        DontDestroyOnLoad(gameObject);
     }
 
 
-    //have to delete main camera on create relay or remove its tag
+    
     public async Task<string> CreateRelay()
     {
         Debug.Log("in the createRelay function");
         try
         {
             Debug.Log("starting relay host");
-            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(7);//7 je max connections jer se host ne racuna pa je 8 -> 7
+            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(7);
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
 
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
 
-            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData); // mzd umesto unityTransport treba relayserver transport
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData); 
             NetworkManager.Singleton.StartHost();
 
             return joinCode;
@@ -63,11 +58,11 @@ public class Relay : MonoBehaviour
         try
         {
             Debug.Log("starting relay client with code" + joinCode);
-            JoinAllocation JoinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);//3 je max connections jer se host ne racuna pa je 4 -> 3
+            JoinAllocation JoinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
 
             RelayServerData relayServerData = new RelayServerData(JoinAllocation, "dtls");
 
-            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData); // mzd umesto unityTransport treba relayserver transport
+            NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData); 
             NetworkManager.Singleton.StartClient();    
         }
         catch (RelayServiceException e)

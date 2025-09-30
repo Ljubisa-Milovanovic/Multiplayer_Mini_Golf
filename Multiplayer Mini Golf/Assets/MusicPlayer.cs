@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MusicPlayer : MonoBehaviour
 {
-    // Drag your three audio clips here in the Unity Inspector
+    
     public AudioClip[] songs;
 
     private AudioSource audioSource;

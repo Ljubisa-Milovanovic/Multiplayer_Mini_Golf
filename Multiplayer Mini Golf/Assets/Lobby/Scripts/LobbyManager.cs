@@ -18,12 +18,12 @@ public class LobbyManager : MonoBehaviour {
     public const string KEY_PLAYER_NAME = "PlayerName";
     public const string KEY_PLAYER_CHARACTER = "Character";
     public const string KEY_GAME_MODE = "GameMode";
-    public const string KEY_START_GAME = "0"; //Start game
+    public const string KEY_START_GAME = "0"; 
 
 
 
     public event EventHandler OnLeftLobby;
-    public event EventHandler OnGameStarted;// ?
+    public event EventHandler OnGameStarted;
 
     public event EventHandler<LobbyEventArgs> OnJoinedLobby;
     public event EventHandler<LobbyEventArgs> OnJoinedLobbyUpdate;
@@ -65,7 +65,7 @@ public class LobbyManager : MonoBehaviour {
     }
 
     private void Update() {
-        //HandleRefreshLobbyList(); // Disabled Auto Refresh for testing with multiple builds
+        
         HandleLobbyHeartbeat();
         HandleLobbyPolling();
     }
@@ -78,7 +78,7 @@ public class LobbyManager : MonoBehaviour {
         await UnityServices.InitializeAsync(initializationOptions);
 
         AuthenticationService.Instance.SignedIn += () => {
-            // do nothing
+            
             Debug.Log("Signed in! " + AuthenticationService.Instance.PlayerId);
 
             RefreshLobbyList();
@@ -124,7 +124,7 @@ public class LobbyManager : MonoBehaviour {
                 OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
 
                 if (!IsPlayerInLobby()) {
-                    // Player was kicked out of this lobby
+                    
                     Debug.Log("Kicked from Lobby!");
 
                     OnKickedFromLobby?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
@@ -140,7 +140,7 @@ public class LobbyManager : MonoBehaviour {
                         joinedLobby = null;
                     }
 
-                    OnGameStarted?.Invoke(this, EventArgs.Empty); //If gamestarted    it invokes the event, passing this
+                    OnGameStarted?.Invoke(this, EventArgs.Empty); 
                 }
             }
         }
@@ -158,7 +158,7 @@ public class LobbyManager : MonoBehaviour {
         if (joinedLobby != null && joinedLobby.Players != null) {
             foreach (Player player in joinedLobby.Players) {
                 if (player.Id == AuthenticationService.Instance.PlayerId) {
-                    // This player is in this lobby
+                    
                     return true;
                 }
             }
@@ -243,7 +243,7 @@ public class LobbyManager : MonoBehaviour {
             QueryLobbiesOptions options = new QueryLobbiesOptions();
             options.Count = 25;
 
-            // Filter for open lobbies only
+            
             options.Filters = new List<QueryFilter> {
                 new QueryFilter(
                     field: QueryFilter.FieldOptions.AvailableSlots,
@@ -251,7 +251,7 @@ public class LobbyManager : MonoBehaviour {
                     value: "0")
             };
 
-            // Order by newest lobbies first
+            
             options.Order = new List<QueryOrder> {
                 new QueryOrder(
                     asc: false,
