@@ -223,18 +223,18 @@ public class NameManager : NetworkBehaviour
 
     public string getNajveciScore()
     {
-        int max = 0;
-        ulong maxId = ulong.MaxValue;
+        int min = 9999;
+        ulong minId = 0;
         for (int i = 0; i < networkPlayerList.Count; i++)
         {
-            if (networkPlayerList[i].TotalScore > max)
+            if (networkPlayerList[i].TotalScore < min && networkPlayerList[i].playerId!=ulong.MaxValue)
             {
-                maxId = networkPlayerList[i].playerId;
+                minId = networkPlayerList[i].playerId;
             }
         }
         for (int i = 0; i < networkPlayerList.Count; i++)
         {
-            if (networkPlayerList[i].playerId == maxId)
+            if (networkPlayerList[i].playerId == minId)
             {
                 return networkPlayerList[i].playerName.ToString();
             }
