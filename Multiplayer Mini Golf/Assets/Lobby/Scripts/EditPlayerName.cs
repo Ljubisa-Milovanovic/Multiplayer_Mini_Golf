@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EditPlayerName : MonoBehaviour {
-
+    
 
     public static EditPlayerName Instance { get; private set; }
 
@@ -17,7 +17,7 @@ public class EditPlayerName : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI playerNameText;
 
 
-    private string playerName = "miniGolfer"; //pumpaj, cup pohlepe
+    private string playerName = "miniGolfer"; //pumpaj, cup pohlepe, ime
 
 
     private void Awake() {
