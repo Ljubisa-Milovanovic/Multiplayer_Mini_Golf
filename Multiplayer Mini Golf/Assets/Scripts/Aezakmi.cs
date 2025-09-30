@@ -16,7 +16,7 @@ public class Aezakmi : NetworkBehaviour
 
     
     private Rigidbody _rigidbody;
-    private Vector3 spawnPositionBase = new Vector3(-1.5f, 3, -10.5f);
+    private Vector3 spawnPositionBase = new Vector3(0, 1, -10);
     private System.Random rnd = new System.Random();
 
     private void Awake()
@@ -72,9 +72,9 @@ public class Aezakmi : NetworkBehaviour
         }
 
         Vector3 randomOffset = new Vector3(
-            (float)Math.Round(rnd.NextDouble() * 0.5 + 0.25, 3),
-            0,
-            (float)Math.Round(rnd.NextDouble() * 0.5 + 0.25, 3)
+            //(float)Math.Round(rnd.NextDouble() * 0.5 + 0.25, 3),
+            0,0,0
+            //(float)Math.Round(rnd.NextDouble() * 0.5 + 0.25, 3)
         );
         Vector3 targetSpawnPosition = spawnPositionBase + randomOffset;
 

@@ -25,14 +25,14 @@ public class GameMenager : MonoBehaviour
 
     Dictionary<string, Vector3> SpawnPoints = new Dictionary<string, Vector3>()
     {
-        {"lvl1" , new Vector3(-1.5f, 1, -10.5f) },
-        {"lvl2" , new Vector3(5, 1, 5) },
-        {"lvl3" , new Vector3(-31, 15, 31)}
+        {"lvl1" , new Vector3(0, 1, -10) }, // 0 1 2 hole location
+        {"lvl2" , new Vector3(0, 1, 2) }, // 0 1 -2 hole location
+        {"lvl3" , new Vector3(-5, 5, 5)} // 10 1 -10 hole location
     };
 
     Dictionary<string, int> ParCount = new Dictionary<string, int> 
     {
-        {"lvl1" , 4 },
+        {"lvl1" , 4},
         {"lvl2" , 9},
         {"lvl3" , 7}
     };

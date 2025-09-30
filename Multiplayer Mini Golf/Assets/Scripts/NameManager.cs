@@ -184,8 +184,8 @@ public class NameManager : NetworkBehaviour
                 
                 if (playerStats.playerId != playerId)
                 {
-                    playerStats.TotalScore += 5;
-                    playerStats.CurrScore +=5;
+                    playerStats.TotalScore += 10;
+                    playerStats.CurrScore +=10;
                 }
                 networkPlayerList[i] = playerStats;
                 Debug.Log($"<color=orange>Server: Updated hole for Player ID: {playerId}. New HoleNumber: {playerStats.HoleNumber}</color>");
