@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using QFSW.QC;
+using Unity.Netcode;
 
 public class Timer : MonoBehaviour
 {
@@ -35,10 +37,23 @@ public class Timer : MonoBehaviour
        
     }
 
+    [Command("krajIgre")]
     private void KrajIgre()
     {
         GameOverManager.Instance.Show();
         string ime = NameManager.instance.getNajveciScore();
         GameOverManager.Instance.SetPobednikText(ime);
+
+        if (NetworkManager.Singleton.IsServer)
+        {
+            foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
+            {
+                var playerObj = client.PlayerObject;
+                if (playerObj != null && playerObj.IsSpawned)
+                {
+                    playerObj.Despawn(true); // true = destroy object across all clients
+                }
+            }
+        }
     }
 }
