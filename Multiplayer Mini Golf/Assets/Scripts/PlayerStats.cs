@@ -12,12 +12,14 @@ public struct PlayerStats : INetworkSerializable, IEquatable<PlayerStats>
     public FixedString32Bytes playerName;
     public int CurrScore;
     public int TotalScore;
+    public int HoleNumber;
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
     {
         serializer.SerializeValue(ref playerId);
         serializer.SerializeValue(ref playerName);
         serializer.SerializeValue(ref CurrScore);
         serializer.SerializeValue(ref TotalScore);
+        serializer.SerializeValue(ref HoleNumber);
     }
     public bool Equals(PlayerStats other)
     {

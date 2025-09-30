@@ -14,6 +14,11 @@ public class ScoreBoardManager : NetworkBehaviour
     public TextMeshProUGUI[] namesTab;
     public TextMeshProUGUI[] TotalScoresBoard;
     public TextMeshProUGUI[] TotalScoresTab;
+    public TextMeshProUGUI[] Holes;
+    public TextMeshProUGUI[] ColumnOne;
+    public TextMeshProUGUI[] ColumnTwo;
+    public TextMeshProUGUI[] ColumnThree;
+    public TextMeshProUGUI[] ColumnFour;
     public static ScoreBoardManager Instance { get; private set; }
 
     private void Awake()
@@ -94,11 +99,86 @@ public class ScoreBoardManager : NetworkBehaviour
 
 
 
+    [Command("FillInHole")]
+    public void FillInHole()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            if (i < NameManager.instance.networkPlayerList.Count)
+            {
+                Holes[i].text = NameManager.instance.networkPlayerList[i].HoleNumber.ToString();
+            }
+            else
+            {
+                Holes[i].text = "";
+            }
+        }
+    }
 
 
+    [Command("FillColumnOne")]
+    public void FillColumnOne()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            if (i < NameManager.instance.networkPlayerList.Count)
+            {
+                ColumnOne[i].text = NameManager.instance.networkPlayerList[i].CurrScore.ToString();
+            }
+            else
+            {
+                ColumnOne[i].text = "";
+            }
+        }
+    }
 
+    [Command("FillColumnTwo")]
+    public void FillColumnTwo()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            if (i < NameManager.instance.networkPlayerList.Count)
+            {
+                ColumnTwo[i].text = NameManager.instance.networkPlayerList[i].CurrScore.ToString();
+            }
+            else
+            {
+                ColumnTwo[i].text = "";
+            }
+        }
+    }
 
+    [Command("FillColumnThree")]
+    public void FillColumnThree()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            if (i < NameManager.instance.networkPlayerList.Count)
+            {
+                ColumnThree[i].text = NameManager.instance.networkPlayerList[i].CurrScore.ToString();
+            }
+            else
+            {
+                ColumnThree[i].text = "";
+            }
+        }
+    }
 
+    [Command("FillColumnFour")]
+    public void FillColumnFour()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            if (i < NameManager.instance.networkPlayerList.Count)
+            {
+                ColumnFour[i].text = NameManager.instance.networkPlayerList[i].CurrScore.ToString();
+            }
+            else
+            {
+                ColumnFour[i].text = "";
+            }
+        }
+    }
 
 
 

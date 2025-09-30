@@ -14,7 +14,8 @@ public class GameMenager : MonoBehaviour
     private Aezakmi _aezakmi;
     public static GameMenager instance { get; private set; }
     public Vector3 lastLocation;
-    int i = 2;
+    public int BrojNivoa = 2;
+    public bool CurrShouldBeReset = false;
 
     [SerializeField] private TextMeshProUGUI HolesTxt;
     [SerializeField] private TextMeshProUGUI ParTxt;
@@ -59,7 +60,7 @@ public class GameMenager : MonoBehaviour
             Debug.LogError("Aezakmi nije nadjen");
         }
         
-        string levelToLoadName = "lvl" + i.ToString(); // e.g., "lvl2" if i is 2
+        string levelToLoadName = "lvl" + BrojNivoa.ToString(); // e.g., "lvl2" if i is 2
         UnloadLevel();
         GameObject levelPrefab = LoadLevel(levelToLoadName);
         if (levelPrefab == null)
@@ -87,10 +88,10 @@ public class GameMenager : MonoBehaviour
             // Optionally, provide a default spawn or handle this error
             _aezakmi.TeleportBall(0, 5, 0); // Example default
         }
-        i++;
-        if (i > SpawnPoints.Count) // Assuming SpawnPoints has "lvl1", "lvl2", etc.
+        BrojNivoa++;
+        if (BrojNivoa > SpawnPoints.Count) // Assuming SpawnPoints has "lvl1", "lvl2", etc.
         {
-            i = 1; // Or the starting level index
+            BrojNivoa = 1; // Or the starting level index
         }
     }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using QFSW.QC;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,7 +8,6 @@ using static Cinemachine.DocumentationSortingAttribute;
 
 public class HoleDetector : MonoBehaviour
 {
-    
 
     private void Awake()
     {
@@ -47,8 +47,9 @@ public class HoleDetector : MonoBehaviour
                 GameMenager.instance.HoleSound();
                 // go to next level
                 GameMenager.instance.NextLevel();
-               
-                
+
+                NameManager.instance.HoleUpdateServerRpc(udarac.OwnerClientId);
+                GameMenager.instance.CurrShouldBeReset = true;
             }
             else
             {
@@ -66,5 +67,5 @@ public class HoleDetector : MonoBehaviour
             Debug.Log("Ball has exited the hole!");
             // Perform any additional actions you want, if needed
         }
-    }
+    } 
 }

@@ -265,7 +265,8 @@ public class Udarac : NetworkBehaviour
 
         this.GetComponent<AudioSource>().Play();
 
-
+        //if (GameMenager.instance.CurrShouldBeReset)
+        //    NameManager.instance.ResetCurrScore();
         NameManager.instance.UpdatePlayerTotalScoreServerRpc(OwnerClientId, 1);
     }
 

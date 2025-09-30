@@ -1936,7 +1936,8 @@ MonoBehaviour:
   changeGameModeButton: {fileID: 3629630581886467801}
   proceedButton: {fileID: 2428229219220118916}
   canvas: {fileID: 6759273576883189183}
-  MusicPLayer: {fileID: 0}
+  MusicPLayer: {fileID: 4606064683311173438, guid: 735ba690beab99042ad305617d8c44a0,
+    type: 3}
 --- !u!1 &1581430914826095254
 GameObject:
   m_ObjectHideFlags: 0
